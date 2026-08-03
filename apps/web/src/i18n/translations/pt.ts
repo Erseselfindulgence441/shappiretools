@@ -126,4 +126,21 @@ Object.assign(pt, {
   'coming.badge': 'Em desenvolvimento',
 })
 
+Object.assign(pt, {
+  'tools.googleLens.name': 'Google Lens Search', 'tools.googleLens.description': 'Envie uma imagem e continue a busca visual no Google Lens.',
+  'googleLens.kicker': 'BUSCA VISUAL', 'googleLens.title': 'Google Lens Search.', 'googleLens.lead': 'Envie uma imagem e continue sua busca visual no Google Lens.',
+  'googleLens.dropTitle': 'Arraste uma imagem aqui', 'googleLens.dropLead': 'ou selecione um arquivo do seu dispositivo', 'googleLens.formats': 'JPEG, PNG ou WebP — máximo de 10 MB', 'googleLens.choose': 'Selecionar imagem', 'googleLens.clear': 'Remover imagem', 'googleLens.search': 'Pesquisar com Google Lens', 'googleLens.loading': 'Preparando busca...', 'googleLens.open': 'Abrir Google Lens', 'googleLens.privacy': 'Sua imagem é sanitizada, enviada temporariamente e removida em aproximadamente 15 minutos. O Google pode processá-la ao continuar.',
+  'googleLens.errors.image_required': 'Selecione uma imagem para pesquisar.', 'googleLens.errors.unsupported_image': 'Envie uma imagem JPEG, PNG ou WebP de até 10 MB.', 'googleLens.errors.invalid_image': 'O arquivo enviado não é uma imagem válida.', 'googleLens.errors.image_too_large': 'A imagem excede o limite permitido.', 'googleLens.errors.storage_not_configured': 'A busca visual não está disponível neste servidor.', 'googleLens.errors.temporary_upload_failed': 'Não foi possível preparar a imagem temporária.', 'googleLens.errors.rate_limited': 'Limite de buscas visuais atingido. Tente mais tarde.', 'googleLens.errors.internal_error': 'Não foi possível preparar a busca agora.',
+})
+
+Object.assign(pt, { 'googleLens.privacy': 'Sua imagem é sanitizada, enviada temporariamente e removida em aproximadamente 3 minutos. O Google pode processá-la ao continuar.' })
+
+Object.assign(pt, {
+  'nav.downloader': 'Downloader',
+  'home.kicker': 'SHAPPIRE TOOLS', 'home.title': 'Ferramentas simples para a internet de todos os dias.', 'home.lead': 'Downloads de mídia, conversores e utilitários úteis em um único lugar — sem conta, sem ruído e sem complicação.', 'home.downloader': 'Downloader de mídia', 'home.tools': 'Explorar ferramentas', 'home.overviewLabel': 'O que você encontra no Shappire',
+  'home.media.title': 'Mídia', 'home.media.description': 'Baixe, converta e organize arquivos de vídeo, áudio, imagem e PDF.',
+  'home.utility.title': 'Utilitários', 'home.utility.description': 'Resolva tarefas rápidas com ferramentas diretas para o dia a dia.',
+  'home.creative.title': 'Criação', 'home.creative.description': 'Apoio prático para designers, criadores e quem constrói na web.',
+})
+
 export default pt

@@ -21,6 +21,11 @@ const env = {
 
     rateLimitWindow: 60,
     rateLimitMax: 30,
+    googleLensImageTtlSeconds: parseInt(process.env.GOOGLE_LENS_IMAGE_TTL_SECONDS || '180', 10),
+    googleLensRateLimitMax: parseInt(process.env.GOOGLE_LENS_RATE_LIMIT_MAX || '10', 10),
+    googleLensRateLimitWindowMs: parseInt(process.env.GOOGLE_LENS_RATE_LIMIT_WINDOW_MS || '3600000', 10),
+    googleLensMaxFileMb: parseInt(process.env.GOOGLE_LENS_MAX_FILE_MB || '10', 10),
+    googleLensMaxPixels: parseInt(process.env.GOOGLE_LENS_MAX_PIXELS || '25000000', 10),
     tunnelRateLimitWindow: 60,
     tunnelRateLimitMax: 60,
     sessionRateLimitWindow: 60,

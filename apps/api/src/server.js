@@ -19,6 +19,7 @@ import { convertMedia, uploadMedia } from './tools/media-converter.js';
 import { redirectShortLink, shortenLink } from './tools/link-shortener.js';
 import { inspectMusic } from './media/music-info.js';
 import { trackAction, getStats } from './telemetry/stats.js';
+import { googleLensLimiter, searchWithGoogleLens, uploadGoogleLensImage } from './tools/google-lens/route.js';
 
 const app = express();
 
@@ -123,6 +124,7 @@ app.post('/tools/media-converter', apiLimiter, uploadMedia, async (req, res) => 
 });
 
 app.post('/tools/link-shortener', apiLimiter, shortenLink);
+app.post('/tools/google-lens', googleLensLimiter, uploadGoogleLensImage, searchWithGoogleLens);
 app.post('/media/inspect', apiLimiter, inspectMusic);
 app.get('/s/:slug', redirectShortLink);
 

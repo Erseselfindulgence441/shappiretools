@@ -119,6 +119,7 @@ Server-side video and audio processing powered by FFmpeg:
 - Color Converter: Convert seamlessly between HEX, RGB, HSL, HSV, and CMYK.
 - Favicon Generator: Create favicons directly from images.
 - QR Code Tools: Custom QR code generator and scanner via camera or file upload.
+- Google Lens Search: Sanitizes an image, uploads it temporarily, and opens Google Lens for the visual search. This is not an official Google API integration; temporary files are removed after approximately 3 minutes.
 
 ### PDF & Document Tools
 - PDF Tools: Merge multiple PDFs, split documents into pages, extract specific pages, and preview files.
@@ -143,7 +144,7 @@ shappiretools/
 
 ### Backend (`apps/api`)
 - Node.js + Express: RESTful API handling media extraction, conversion, and stream delivery.
-- Embedded Media Engine: Integrated Cobalt-derived extraction engine running natively inside Node.js.
+- Embedded Media Engine: Integrated media extraction engine running natively inside Node.js.
 - FFmpeg & Sharp: High-performance binary processing on the server.
 - Media Tunneling (`/tunnel`): Secure proxy endpoint producing temporary URLs signed with HMAC-SHA256, encrypted with AES-256, and time-restricted for streaming without leaking upstream tokens or headers.
 - Security & Rate Limiting: Hardened with helmet, global rate limiting (100 req/min), burst protection (10 req/5s), and hashed IP rate limiting.

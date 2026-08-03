@@ -125,4 +125,21 @@ Object.assign(en, {
   'coming.badge': 'In development',
 })
 
+Object.assign(en, {
+  'tools.googleLens.name': 'Google Lens Search', 'tools.googleLens.description': 'Upload an image and continue your visual search on Google Lens.',
+  'googleLens.kicker': 'VISUAL SEARCH', 'googleLens.title': 'Google Lens Search.', 'googleLens.lead': 'Upload an image and continue your visual search on Google Lens.',
+  'googleLens.dropTitle': 'Drop an image here', 'googleLens.dropLead': 'or select a file from your device', 'googleLens.formats': 'JPEG, PNG or WebP — maximum 10 MB', 'googleLens.choose': 'Choose image', 'googleLens.clear': 'Remove image', 'googleLens.search': 'Search with Google Lens', 'googleLens.loading': 'Preparing search...', 'googleLens.open': 'Open Google Lens', 'googleLens.privacy': 'Your image is sanitized, uploaded temporarily, and removed after approximately 15 minutes. Google may process it when you continue.',
+  'googleLens.errors.image_required': 'Select an image to search.', 'googleLens.errors.unsupported_image': 'Upload a JPEG, PNG, or WebP image up to 10 MB.', 'googleLens.errors.invalid_image': 'The uploaded file is not a valid image.', 'googleLens.errors.image_too_large': 'The image exceeds the allowed limit.', 'googleLens.errors.storage_not_configured': 'Visual search is not available on this server.', 'googleLens.errors.temporary_upload_failed': 'The temporary image could not be prepared.', 'googleLens.errors.rate_limited': 'Visual search limit reached. Try again later.', 'googleLens.errors.internal_error': 'The search could not be prepared now.',
+})
+
+Object.assign(en, { 'googleLens.privacy': 'Your image is sanitized, uploaded temporarily, and removed after approximately 3 minutes. Google may process it when you continue.' })
+
+Object.assign(en, {
+  'nav.downloader': 'Downloader',
+  'home.kicker': 'SHAPPIRE TOOLS', 'home.title': 'Simple tools for the everyday internet.', 'home.lead': 'Media downloads, converters, and useful utilities in one place — no account, no noise, no friction.', 'home.downloader': 'Media downloader', 'home.tools': 'Explore tools', 'home.overviewLabel': 'What you can find on Shappire',
+  'home.media.title': 'Media', 'home.media.description': 'Download, convert, and organize video, audio, image, and PDF files.',
+  'home.utility.title': 'Utilities', 'home.utility.description': 'Handle everyday tasks with focused, straightforward tools.',
+  'home.creative.title': 'Creation', 'home.creative.description': 'Practical support for designers, creators, and people building for the web.',
+})
+
 export default en

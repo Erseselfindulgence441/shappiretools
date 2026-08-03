@@ -9,6 +9,7 @@ export function Header() {
       <nav className="nav">
         <Logo />
         <div className="nav-links">
+          <a href="/downloader">{t('nav.downloader')}</a>
           <a href="/tools">{t('nav.tools')}</a>
           <a href="/servicos">FAQ</a>
           <a href="/settings">{t('nav.settings')}</a>

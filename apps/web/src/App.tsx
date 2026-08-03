@@ -1,13 +1,15 @@
 import { Footer, Header } from './components/layout'
 import { BetaBanner } from './components/layout/BetaBanner'
-import { Hero } from './components/home'
-import { About, Base64Tool, ColorConverter, DiscordSuite, EmojiCopier, FAQ, FaviconGenerator, HashGenerator, ImageConverter, JsonTools, JwtDecoder, Legal, LinkShortener, MediaConverter, PaletteGenerator, PasswordGenerator, PDFTools, QRTools, RegexTester, Settings, Tools, UrlTool, UuidGenerator } from './components/pages'
+import { Hero, Home } from './components/home'
+import { About, Base64Tool, ColorConverter, DiscordSuite, EmojiCopier, FAQ, FaviconGenerator, GoogleLensSearch, HashGenerator, ImageConverter, JsonTools, JwtDecoder, Legal, LinkShortener, MediaConverter, PaletteGenerator, PasswordGenerator, PDFTools, QRTools, RegexTester, Settings, Tools, UrlTool, UuidGenerator } from './components/pages'
 import { getCurrentRoute, getPageShellClass } from './lib/routing'
 
 function MainContent() {
   const route = getCurrentRoute()
 
   switch (route) {
+    case 'downloader':
+      return <Hero />
     case 'faq':
       return <FAQ />
     case 'settings':
@@ -28,6 +30,8 @@ function MainContent() {
       return <PDFTools />
     case 'image-converter':
       return <ImageConverter />
+    case 'google-lens':
+      return <GoogleLensSearch />
     case 'emoji-copier':
       return <EmojiCopier />
     case 'media-converter':
@@ -57,7 +61,7 @@ function MainContent() {
     case 'discord-components': return <DiscordSuite kind="components" />
     case 'discord-embed': return <DiscordSuite kind="embed" />
     default:
-      return <Hero />
+      return <Home />
   }
 }
 

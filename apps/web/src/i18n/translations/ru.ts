@@ -124,4 +124,21 @@ Object.assign(ru, {
   'coming.badge': 'В процессе разработки',
 })
 
+Object.assign(ru, {
+  'tools.googleLens.name': 'Google Lens Search', 'tools.googleLens.description': 'Загрузите изображение и продолжите визуальный поиск в Google Lens.',
+  'googleLens.kicker': 'ВИЗУАЛЬНЫЙ ПОИСК', 'googleLens.title': 'Google Lens Search.', 'googleLens.lead': 'Загрузите изображение и продолжите визуальный поиск в Google Lens.',
+  'googleLens.dropTitle': 'Перетащите изображение сюда', 'googleLens.dropLead': 'или выберите файл на устройстве', 'googleLens.formats': 'JPEG, PNG или WebP — максимум 10 МБ', 'googleLens.choose': 'Выбрать изображение', 'googleLens.clear': 'Удалить изображение', 'googleLens.search': 'Искать с Google Lens', 'googleLens.loading': 'Подготовка поиска...', 'googleLens.open': 'Открыть Google Lens', 'googleLens.privacy': 'Изображение очищается, временно загружается и удаляется примерно через 15 минут. Google может обработать его после продолжения.',
+  'googleLens.errors.image_required': 'Выберите изображение для поиска.', 'googleLens.errors.unsupported_image': 'Загрузите JPEG, PNG или WebP размером до 10 МБ.', 'googleLens.errors.invalid_image': 'Загруженный файл не является корректным изображением.', 'googleLens.errors.image_too_large': 'Изображение превышает допустимый лимит.', 'googleLens.errors.storage_not_configured': 'Визуальный поиск недоступен на этом сервере.', 'googleLens.errors.temporary_upload_failed': 'Не удалось подготовить временное изображение.', 'googleLens.errors.rate_limited': 'Достигнут лимит визуального поиска. Повторите позже.', 'googleLens.errors.internal_error': 'Не удалось подготовить поиск.',
+})
+
+Object.assign(ru, { 'googleLens.privacy': 'Изображение очищается, временно загружается и удаляется примерно через 3 минуты. Google может обработать его после продолжения.' })
+
+Object.assign(ru, {
+  'nav.downloader': 'Загрузки',
+  'home.kicker': 'SHAPPIRE TOOLS', 'home.title': 'Простые инструменты для повседневного интернета.', 'home.lead': 'Загрузка медиа, конвертеры и полезные утилиты в одном месте — без аккаунта и лишнего шума.', 'home.downloader': 'Загрузчик медиа', 'home.tools': 'Все инструменты', 'home.overviewLabel': 'Что есть в Shappire',
+  'home.media.title': 'Медиа', 'home.media.description': 'Скачивайте, конвертируйте и упорядочивайте видео, аудио, изображения и PDF.',
+  'home.utility.title': 'Утилиты', 'home.utility.description': 'Решайте ежедневные задачи с помощью простых и целевых инструментов.',
+  'home.creative.title': 'Создание', 'home.creative.description': 'Практичная поддержка для дизайнеров, авторов и создателей веб-проектов.',
+})
+
 export default ru

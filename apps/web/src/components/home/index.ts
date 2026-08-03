@@ -1,5 +1,6 @@
 export { Features } from './Features'
 export { FloatingCards } from './FloatingCards'
+export { Home } from './Home'
 export { Hero } from './Hero'
 export { Services } from './Services'
 export { StatsCounter } from './StatsCounter'

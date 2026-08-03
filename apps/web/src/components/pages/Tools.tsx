@@ -17,6 +17,7 @@ const categories = [
     { href: '/tools/palette-generator', icon: Palette, name: 'tools.palette.name', description: 'tools.palette.description', image: 'https://i.imgur.com/QwIKejW.png' },
     { href: '/tools/color-converter', icon: Pipette, name: 'tools.color.name', description: 'tools.color.description', image: 'https://i.imgur.com/F0cNYvW.png' },
     { href: '/tools/favicon-generator', icon: Stamp, name: 'tools.favicon.name', description: 'tools.favicon.description', image: 'https://i.imgur.com/a3xr5Cj.png' },
+    { href: '/tools/google-lens', icon: Search, name: 'tools.googleLens.name', description: 'tools.googleLens.description' },
   ] },
   { title: 'tools.category.discord', tools: [
     { href:'/tools/discord-components', icon:MessageSquare,name:'discord.components.title',description:'discord.components.lead', image: 'https://i.imgur.com/GZtP6cx.png' },

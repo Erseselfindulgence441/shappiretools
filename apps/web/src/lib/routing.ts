@@ -1,9 +1,11 @@
-export type AppRoute = 'home' | 'faq' | 'settings' | 'about' | 'terms' | 'ethics' | 'tools' | 'password-generator' | 'link-shortener' | 'pdf-tools' | 'image-converter' | 'emoji-copier' | 'media-converter' | 'json-tools' | 'jwt-decoder' | 'regex-tester' | 'uuid-generator' | 'hash-generator' | 'base64-tool' | 'url-tool' | 'qr-tools' | 'palette-generator' | 'color-converter' | 'favicon-generator' | 'discord-components' | 'discord-embed'
+export type AppRoute = 'home' | 'downloader' | 'faq' | 'settings' | 'about' | 'terms' | 'ethics' | 'tools' | 'password-generator' | 'link-shortener' | 'pdf-tools' | 'image-converter' | 'google-lens' | 'emoji-copier' | 'media-converter' | 'json-tools' | 'jwt-decoder' | 'regex-tester' | 'uuid-generator' | 'hash-generator' | 'base64-tool' | 'url-tool' | 'qr-tools' | 'palette-generator' | 'color-converter' | 'favicon-generator' | 'discord-components' | 'discord-embed'
 
 export function getCurrentRoute(pathname = window.location.pathname): AppRoute {
   const path = pathname.replace(/\/+$/, '')
 
   switch (path) {
+    case '/downloader':
+      return 'downloader'
     case '/servicos':
       return 'faq'
     case '/settings':
@@ -24,6 +26,8 @@ export function getCurrentRoute(pathname = window.location.pathname): AppRoute {
       return 'pdf-tools'
     case '/tools/image-converter':
       return 'image-converter'
+    case '/tools/google-lens':
+      return 'google-lens'
     case '/tools/emoji-copier':
       return 'emoji-copier'
     case '/tools/media-converter':
@@ -60,6 +64,7 @@ export function getCurrentRoute(pathname = window.location.pathname): AppRoute {
 export function getPageShellClass(route: AppRoute): string {
   const classes = ['page-shell']
 
+  if (route === 'downloader') classes.push('downloader-page')
   if (route === 'settings') classes.push('settings-page')
   if (route === 'faq') classes.push('faq-page-shell')
   if (route === 'about') classes.push('about-page')
@@ -69,6 +74,7 @@ export function getPageShellClass(route: AppRoute): string {
   if (route === 'link-shortener') classes.push('link-shortener-page')
   if (route === 'pdf-tools') classes.push('pdf-tools-page')
   if (route === 'image-converter') classes.push('image-converter-page')
+  if (route === 'google-lens') classes.push('google-lens-page')
   if (route === 'emoji-copier') classes.push('emoji-copier-page')
   if (route === 'media-converter') classes.push('media-converter-page')
   if (route === 'qr-tools') classes.push('qr-tools-page')
