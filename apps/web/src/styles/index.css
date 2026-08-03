@@ -1,0 +1,7 @@
+/**
+ * Styles entry — import order matters (cascade must stay identical).
+ * 1. base.css  — foundation + download/settings primitives
+ * 2. theme.css — product theme refinements & page layouts
+ */
+@import './base.css';
+@import './theme.css';
