@@ -1,7 +1,6 @@
 import { ArrowRight, Bot, Code2, Download, FileText, Image, Lock, ShieldCheck, Sparkles, Wrench, Zap } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useI18n } from '../../i18n'
-import { Hero } from './Hero'
 import { Features } from './Features'
 import { Services } from './Services'
 
@@ -17,7 +16,6 @@ export function Home() {
       title: t('home.media.title') || 'Download de Mídia',
       description: 'Baixe vídeos, áudios e clipes em alta resolução de mais de 20 plataformas suportadas.',
       tags: ['TikTok', 'Instagram', 'Twitter/X', 'SoundCloud', 'Spotify'],
-      color: 'from-blue-500/20 to-cyan-500/20',
     },
     {
       id: 'converter',
@@ -27,7 +25,6 @@ export function Home() {
       title: 'Conversor de Imagens & Mídia',
       description: 'Converta formatos (PNG, WebP, AVIF, MP4, MP3), recorte, redimensione e ajuste a qualidade.',
       tags: ['PNG', 'WebP', 'AVIF', 'MP4', 'GIF'],
-      color: 'from-purple-500/20 to-pink-500/20',
     },
     {
       id: 'dev',
@@ -37,7 +34,6 @@ export function Home() {
       title: 'Ferramentas de Dev',
       description: 'Formatador JSON, decodificador JWT, testador Regex, gerador de hashes e UUIDs v4.',
       tags: ['JSON', 'JWT', 'Regex', 'Base64', 'Hash'],
-      color: 'from-emerald-500/20 to-teal-500/20',
     },
     {
       id: 'pdf',
@@ -47,7 +43,6 @@ export function Home() {
       title: 'PDF & Documentos',
       description: 'Junte múltiplos PDFs (Merge), divida páginas (Split) e extraia partes do documento com rapidez.',
       tags: ['Merge PDF', 'Split PDF', 'Page Extract'],
-      color: 'from-amber-500/20 to-orange-500/20',
     },
     {
       id: 'discord',
@@ -57,7 +52,6 @@ export function Home() {
       title: 'Discord Suite',
       description: 'Crie Rich Embeds interativos, gere marcações de tempo dinâmicas (Timestamps) e textos estilizados.',
       tags: ['Embed Builder', 'Timestamps', 'Formatters'],
-      color: 'from-indigo-500/20 to-violet-500/20',
     },
     {
       id: 'utilities',
@@ -67,7 +61,6 @@ export function Home() {
       title: t('home.utility.title') || 'Utilitários & Design',
       description: 'Encurtador de links com estatísticas, gerador de QR Codes, paletas de cores e senhas seguras.',
       tags: ['Shortener', 'QR Code', 'Paletas', 'Senhas'],
-      color: 'from-rose-500/20 to-red-500/20',
     },
   ]
 
@@ -79,10 +72,57 @@ export function Home() {
 
   return (
     <div className="home-wrapper">
-      {/* Primary Interactive Downloader Hero */}
-      <Hero />
+      {/* Brand Hero Banner (Presentation only - No Downloader Input) */}
+      <section className="container home-hero-presentation">
+        <motion.div
+          className="home-presentation-content"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="home-presentation-eyebrow">
+            <span className="pulse-dot" />
+            <span>SHAPPIRE TOOLS • PLATAFORMA OPEN SOURCE</span>
+          </div>
 
-      {/* Value Proposition Highlights Banner */}
+          <h1 className="home-presentation-title">
+            Ferramentas simples para a internet de todos os dias.
+          </h1>
+
+          <p className="home-presentation-lead">
+            Downloads de mídia, conversores de arquivos, utilitários para devs, documentos e suite para Discord em um único lugar — sem conta, sem anúncios e sem complicações.
+          </p>
+
+          <div className="home-presentation-actions">
+            <a className="home-btn-primary" href="/downloader">
+              <Download size={17} />
+              <span>Downloader de Mídia</span>
+              <ArrowRight size={16} />
+            </a>
+            <a className="home-btn-secondary" href="/tools">
+              <Wrench size={16} />
+              <span>Explorar Ferramentas</span>
+            </a>
+          </div>
+
+          <div className="home-presentation-stats-pills">
+            <div className="stat-pill">
+              <span className="pill-dot" />
+              <span>+20 Plataformas</span>
+            </div>
+            <div className="stat-pill">
+              <span className="pill-dot" />
+              <span>Sharp & FFmpeg Native</span>
+            </div>
+            <div className="stat-pill">
+              <span className="pill-dot" />
+              <span>100% Grátis & Privado</span>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Pillars Section */}
       <section className="container home-pillars-section">
         <div className="home-pillars-grid">
           <div className="pillar-card">
@@ -115,14 +155,14 @@ export function Home() {
         </div>
       </section>
 
-      {/* Main Suite / Tools Categories Directory Grid */}
+      {/* Tools Directory Showcase Grid */}
       <section className="container home-tools-section" id="ferramentas">
         <div className="home-section-header">
           <div className="header-badge">
             <Sparkles size={13} />
             <span>ECOSSISTEMA COMPLETO</span>
           </div>
-          <h2>Todas as ferramentas em um só lugar.</h2>
+          <h2>Tudo o que você precisa em um só lugar.</h2>
           <p>Explore o catálogo completo de utilitários de mídia, conversores, documentos e recursos para devs.</p>
         </div>
 
@@ -166,7 +206,7 @@ export function Home() {
       {/* Supported Platforms Cloud */}
       <section className="container home-platforms-section">
         <div className="platforms-container">
-          <span className="platforms-title">SUPORTE A +20 PLATAFORMAS & FONTES</span>
+          <span className="platforms-title">SUPORTE A +20 PLATAFORMAS & FONTES DE MÍDIA</span>
           <div className="platforms-cloud">
             {platforms.map((platform) => (
               <span key={platform} className="platform-pill">
