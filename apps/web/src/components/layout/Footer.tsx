@@ -15,7 +15,7 @@ export function Footer() {
 
   return (
     <footer className="site-footer">
-      <p>Made in Brazil with ❤ by <a href="https://www.instagram.com/vassilievz/" target="_blank" rel="noopener noreferrer">Vassiliev</a> for the community.</p>
+      <p>Made in Brazil by <a href="https://t.me/shappiretools" target="_blank" rel="noopener noreferrer">Vassiliev</a> for the community | <a href="https://t.me/shappiretools" target="_blank" rel="noopener noreferrer">Telegram</a> | <a href="https://discord.gg/rWpepgrsHn" target="_blank" rel="noopener noreferrer">Discord Support</a></p>
       {total > 0 && (
         <p className="footer-stats">
           <span className="footer-stats-number">{total.toLocaleString()}</span> {t('footer.processed')}
