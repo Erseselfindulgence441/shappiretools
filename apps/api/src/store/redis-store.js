@@ -1,5 +1,5 @@
 import { commandOptions, createClient } from "redis";
-import { env } from "../config.js";
+import { env } from "../config/index.js";
 import { Store } from "./base-store.js";
 
 export default class RedisStore extends Store {

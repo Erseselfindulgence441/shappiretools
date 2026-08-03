@@ -1,10 +1,10 @@
-import { genericUserAgent } from "../config.js";
+import { browserUserAgent } from "../config/index.js";
 import { vkClientAgent } from "../processing/services/vk.js";
 import { getInternalTunnelFromURL } from "./manage.js";
 import { probeInternalTunnel } from "./internal.js";
 
 const defaultHeaders = {
-    'user-agent': genericUserAgent
+    'user-agent': browserUserAgent
 }
 
 const serviceHeaders = {
@@ -38,7 +38,7 @@ export function closeResponse(res) {
 }
 
 export function getHeaders(service) {
-    // Converting all header values to strings
+    
     return Object.entries({ ...defaultHeaders, ...serviceHeaders[service] })
         .reduce((p, [key, val]) => ({ ...p, [key]: String(val) }), {})
 }
@@ -65,8 +65,7 @@ export async function estimateTunnelLength(streamInfo, multiplier = 1.1) {
 
     const sizes = await Promise.all(internalTunnels.map(probeInternalTunnel));
     const estimatedSize = sizes.reduce(
-        // if one of the sizes is missing, let's just make a very
-        // bold guess that it's the same size as the existing one
+        
         (acc, cur) => cur <= 0 ? acc * 2 : acc + cur,
         0
     );

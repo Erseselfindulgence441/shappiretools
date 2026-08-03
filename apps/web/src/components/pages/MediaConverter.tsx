@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowDownToLine, ArrowRight, Film, Loader2, Music, Upload, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useI18n } from '../../i18n'
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://shappiretools.shardweb.app'
+import { API_URL } from '../../config/constants'
 const MAX_FILE_SIZE = 200 * 1024 * 1024
 
 type ConvertMode = 'convert' | 'audio' | 'compress' | 'resize'
@@ -65,7 +64,6 @@ export function MediaConverter() {
   const [isDragging, setIsDragging] = useState(false)
   const [customFilename, setCustomFilename] = useState('')
 
-  // Mode-specific options
   const [crf, setCrf] = useState(28)
   const [audioBitrate, setAudioBitrate] = useState('128')
   const [crop, setCrop] = useState<Crop>({ x: 8, y: 8, width: 84, height: 84 })
@@ -110,7 +108,6 @@ export function MediaConverter() {
       payload.append('mode', mode)
       if (customFilename.trim()) payload.append('filename', customFilename.trim())
 
-      // Mode-specific params
       if (mode === 'compress') payload.append('crf', String(crf))
       if (mode === 'resize') {
         payload.append('cropX', String(crop.x))

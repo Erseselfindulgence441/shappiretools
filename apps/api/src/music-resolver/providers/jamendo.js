@@ -1,10 +1,6 @@
-/**
- * Provider: Jamendo (música livre/creative commons)
- * API pública com áudio completo gratuito.
- */
 
 const SEARCH_URL = 'https://api.jamendo.com/v3.0/tracks'
-const CLIENT_ID = '5b6ad8c8' // client_id público genérico do Jamendo
+const CLIENT_ID = '5b6ad8c8' 
 
 async function search(title, artist) {
   const query = `${artist} ${title}`.trim()

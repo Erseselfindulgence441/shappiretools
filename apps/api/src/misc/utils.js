@@ -19,12 +19,6 @@ export async function getRedirectingURL(url, dispatcher, headers) {
         }
     }
 
-    /*
-        try request() with HEAD & GET,
-        then do the same with fetch
-        (fetch is required for shortened reddit links)
-    */
-
     let location = await request(url, params)
         .then(callback).catch(() => null);
 

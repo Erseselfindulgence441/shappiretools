@@ -4,8 +4,7 @@ import { motion } from 'framer-motion'
 import ReactCrop, { type Crop as CropType } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { useI18n } from '../../i18n'
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://shappiretools.shardweb.app'
+import { API_URL } from '../../config/constants'
 const MAX_FILE_SIZE = 20 * 1024 * 1024
 const acceptedExtensions = new Set(['png', 'jpg', 'jpeg', 'webp', 'gif', 'bmp', 'tif', 'tiff', 'svg', 'ico', 'heic', 'heif'])
 
@@ -162,7 +161,7 @@ export function ImageConverter() {
       payload.append('height', String(height))
       payload.append('cropEnabled', String(cropEnabled && !!crop))
       if (cropEnabled && crop && sourceDimensions) {
-        // react-image-crop usa porcentagem, converter para pixels
+        
         const pixelCropX = Math.round((crop.x / 100) * sourceDimensions.width)
         const pixelCropY = Math.round((crop.y / 100) * sourceDimensions.height)
         const pixelCropW = Math.round((crop.width / 100) * sourceDimensions.width)

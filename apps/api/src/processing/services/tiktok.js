@@ -1,7 +1,7 @@
 import Cookie from "../cookie/cookie.js";
 
 import { extract, normalizeURL } from "../url.js";
-import { genericUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 import { updateCookie } from "../cookie/manager.js";
 import { createStream } from "../../stream/manage.js";
 import { convertLanguageCode } from "../../misc/language-codes.js";
@@ -17,7 +17,7 @@ export default async function(obj) {
         let html = await fetch(`${shortDomain}${obj.shortLink}`, {
             redirect: "manual",
             headers: {
-                "user-agent": genericUserAgent.split(' Chrome/1')[0]
+                "user-agent": browserUserAgent.split(' Chrome/1')[0]
             }
         }).then(r => r.text()).catch(() => {});
 
@@ -33,7 +33,6 @@ export default async function(obj) {
     }
     if (!postId) return { error: "fetch.short_link" };
 
-    // should always be /video/, even for photos
     const res = await fetch(`https://www.tiktok.com/@i/video/${postId}`, {
         headers: {
             "user-agent": mobileUserAgent,
@@ -55,14 +54,12 @@ export default async function(obj) {
 
         if (!videoDetail) throw "no video detail found";
 
-        // status_deleted or etc
         if (videoDetail.statusMsg) {
             return { error: "content.post.unavailable"};
         }
 
         detail = videoDetail?.itemInfo?.itemStruct;
     } catch {
-        // Fallback: usar tikwm API quando scraping direto falha
         try {
             const tikwmRes = await fetch(
                 `https://www.tikwm.com/api/?url=https://www.tiktok.com/@i/video/${postId}`,
@@ -78,7 +75,6 @@ export default async function(obj) {
             const filenameBase = `tiktok_${d.author?.unique_id || "unknown"}_${postId}`;
 
             if (d.images && d.images.length > 0) {
-                // Post de fotos
                 const imageLinks = d.images.map((url, i) => ({
                     type: "photo",
                     url
@@ -100,7 +96,6 @@ export default async function(obj) {
                 }
             }
 
-            // Video normal
             const videoUrl = d.hdplay || d.play;
             if (!videoUrl) return { error: "fetch.empty" };
 
@@ -123,7 +118,7 @@ export default async function(obj) {
 
     let video, videoFilename, audioFilename, audio, images,
         filenameBase = `tiktok_${detail.author?.uniqueId}_${postId}`,
-        bestAudio; // will get defaulted to m4a later on in match-action
+        bestAudio;
 
     images = detail.imagePost?.images;
 

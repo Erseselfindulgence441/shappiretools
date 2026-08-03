@@ -7,18 +7,18 @@ import rateLimit from "express-rate-limit";
 import stream from "./stream/stream.js";
 import match from "./processing/match.js";
 
-import { env } from "./config.js";
+import { env } from "./config/index.js";
 import { extract } from "./processing/url.js";
 import { Green, Cyan, Bright } from "./misc/console-text.js";
 import { hashHmac } from "./security/secrets.js";
 import { verifyStream } from "./stream/manage.js";
 import { createResponse, normalizeRequest, getIP } from "./processing/request.js";
 import { setupTunnelHandler } from "./core/itunnel.js";
-import { convertImage, uploadImage } from './image-converter.js';
-import { convertMedia, uploadMedia } from './media-converter.js';
-import { redirectShortLink, shortenLink } from './link-shortener.js';
-import { inspectMusic } from './music-info.js';
-import { trackAction, getStats } from './stats.js';
+import { convertImage, uploadImage } from './tools/image-converter.js';
+import { convertMedia, uploadMedia } from './tools/media-converter.js';
+import { redirectShortLink, shortenLink } from './tools/link-shortener.js';
+import { inspectMusic } from './media/music-info.js';
+import { trackAction, getStats } from './telemetry/stats.js';
 
 const app = express();
 
@@ -31,12 +31,11 @@ setupTunnelHandler();
 
 app.use(helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" },
-    contentSecurityPolicy: false, // desativado pra não bloquear o frontend
+    contentSecurityPolicy: false,
 }));
 
 app.disable("x-powered-by");
 
-// Bloquear requests com body muito grande (proteção contra payload attacks)
 app.use((req, res, next) => {
     if (req.headers['content-length'] && parseInt(req.headers['content-length']) > 210 * 1024 * 1024) {
         return res.status(413).json({ error: "Payload muito grande." });
@@ -55,8 +54,8 @@ const globalLimiter = rateLimit({
 app.use(globalLimiter);
 
 const burstLimiter = rateLimit({
-    windowMs: 5 * 1000,  // 5 segundos
-    limit: 10,           // max 10 requests em 5 segundos
+    windowMs: 5 * 1000,
+    limit: 10,
     standardHeaders: false,
     legacyHeaders: false,
     keyGenerator: (req) => getIP(req),
@@ -65,7 +64,6 @@ const burstLimiter = rateLimit({
 app.use("/", burstLimiter);
 app.use("/tools", burstLimiter);
 
-// CORS
 app.use(cors({
     origin: true,
     methods: ["GET", "POST"],
@@ -79,7 +77,6 @@ app.use(cors({
     ],
 }));
 
-// Rate limit
 const apiLimiter = rateLimit({
     windowMs: env.rateLimitWindow * 1000,
     limit: env.rateLimitMax,
@@ -99,7 +96,6 @@ const tunnelLimiter = rateLimit({
 app.set("trust proxy", ["loopback", "uniquelocal"]);
 app.use(express.json({ limit: 1024 }));
 
-// Wrapper para rastrear conversões de imagem
 app.post('/tools/image-converter', apiLimiter, uploadImage, async (req, res) => {
     const originalSend = res.send.bind(res);
     res.send = function(data) {
@@ -113,7 +109,6 @@ app.post('/tools/image-converter', apiLimiter, uploadImage, async (req, res) => 
     return convertImage(req, res);
 });
 
-// Wrapper para rastrear conversões de mídia
 app.post('/tools/media-converter', apiLimiter, uploadMedia, async (req, res) => {
     const originalSend = res.send.bind(res);
     res.send = function(data) {
@@ -131,16 +126,13 @@ app.post('/tools/link-shortener', apiLimiter, shortenLink);
 app.post('/media/inspect', apiLimiter, inspectMusic);
 app.get('/s/:slug', redirectShortLink);
 
-
-// Endpoint de estatísticas
 app.get('/stats', (_req, res) => {
     res.json(getStats());
 });
 
-// Health check
 app.get("/", (_req, res) => {
     res.json({
-        cobalt: {
+        shappire: {
             version: "11.7.1",
             url: env.apiURL,
             startTime: `${Date.now()}`,
@@ -149,7 +141,6 @@ app.get("/", (_req, res) => {
     });
 });
 
-// POST / — endpoint principal de download (igual ao Cobalt)
 app.post("/", apiLimiter, async (req, res) => {
     const request = req.body;
 
@@ -184,12 +175,10 @@ app.post("/", apiLimiter, async (req, res) => {
             authType: "none",
         });
 
-        // Rastrear download se deu certo
         if (result.status === 200) {
             trackAction('download', parsed.host, normalizedRequest.downloadMode || 'auto');
         }
 
-        // Aplicar override de metadata (quando frontend envia metadata do Spotify/YTMusic)
         const overrideMeta = req.body?.overrideMetadata;
         if (result.status === 200 && overrideMeta && result.body?.filename) {
             const title = overrideMeta.title || '';
@@ -208,7 +197,6 @@ app.post("/", apiLimiter, async (req, res) => {
     }
 });
 
-// GET /tunnel — endpoint de streaming (igual ao Cobalt)
 app.get("/tunnel", tunnelLimiter, async (req, res) => {
     const id = String(req.query.id);
     const exp = String(req.query.exp);
@@ -240,7 +228,6 @@ app.get("/tunnel", tunnelLimiter, async (req, res) => {
     return stream(res, streamInfo);
 });
 
-// Start
 app.listen(env.apiPort, '0.0.0.0', () => {
     console.log(`\n  ${Green('[✓]')} ${Bright('Shappire Backend')} rodando!`);
     console.log(`  ${Cyan('Porta:')} ${env.apiPort}`);

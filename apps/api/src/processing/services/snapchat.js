@@ -1,5 +1,5 @@
 import { resolveRedirectingURL } from "../url.js";
-import { genericUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 import { createStream } from "../../stream/manage.js";
 
 const SPOTLIGHT_VIDEO_REGEX = /<link data-react-helmet="true" rel="preload" href="([^"]+)" as="video"\/>/;
@@ -7,7 +7,7 @@ const NEXT_DATA_REGEX = /<script id="__NEXT_DATA__" type="application\/json">({.
 
 async function getSpotlight(id) {
     const html = await fetch(`https://www.snapchat.com/spotlight/${id}`, {
-        headers: { 'user-agent': genericUserAgent }
+        headers: { 'user-agent': browserUserAgent }
     }).then((r) => r.text()).catch(() => null);
 
     if (!html) {
@@ -28,7 +28,7 @@ async function getSpotlight(id) {
 async function getStory(username, storyId, alwaysProxy) {
     const html = await fetch(
         `https://www.snapchat.com/add/${username}${storyId ? `/${storyId}` : ''}`,
-        { headers: { 'user-agent': genericUserAgent } }
+        { headers: { 'user-agent': browserUserAgent } }
     )
     .then((r) => r.text())
     .catch(() => null);

@@ -2,7 +2,7 @@ import ffmpeg from "ffmpeg-static";
 import { spawn } from "child_process";
 import { create as contentDisposition } from "content-disposition-header";
 
-import { env } from "../config.js";
+import { env } from "../config/index.js";
 import { destroyInternalStream } from "./manage.js";
 import { hlsExceptions } from "../processing/service-config.js";
 import { closeResponse, pipe, estimateTunnelLength, estimateAudioMultiplier } from "./shared.js";
@@ -29,7 +29,7 @@ const convertMetadataToFFmpeg = (metadata) => {
                 args.push('-metadata:s:s:0', `language=${value}`);
                 continue;
             }
-            args.push('-metadata', `${name}=${value.replace(/[\u0000-\u0009]/g, '')}`); // skipcq: JS-0004
+            args.push('-metadata', `${name}=${value.replace(/[\u0000-\u0009]/g, '')}`); 
         } else {
             throw `${name} metadata tag is not supported.`;
         }
@@ -39,11 +39,11 @@ const convertMetadataToFFmpeg = (metadata) => {
 }
 
 const killProcess = (p) => {
-    p?.kill('SIGTERM'); // ask the process to terminate itself gracefully
+    p?.kill('SIGTERM'); 
 
     setTimeout(() => {
         if (p?.exitCode === null)
-            p?.kill('SIGKILL'); // brutally murder the process if it didn't quit
+            p?.kill('SIGKILL'); 
     }, 5000);
 }
 
@@ -101,7 +101,6 @@ const remux = async (streamInfo, res) => {
     const urls = Array.isArray(streamInfo.urls) ? streamInfo.urls : [streamInfo.urls];
     const args = urls.flatMap(url => ['-i', url]);
 
-    // if the stream type is merge, we expect two URLs
     if (streamInfo.type === 'merge' && urls.length !== 2) {
         return closeResponse(res);
     }

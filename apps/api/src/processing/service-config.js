@@ -42,13 +42,6 @@ export const services = {
             "reels/:postId",
             "stories/:username/:storyId",
 
-            /*
-                share & username links use the same url pattern,
-                so we test the share pattern first, cuz id type is different.
-                however, if someone has the "share" username and the user
-                somehow gets a link of this ancient style, it's joever.
-            */
-
             "share/:shareId",
             "share/p/:shareId",
             "share/reel/:shareId",
@@ -175,7 +168,6 @@ export const services = {
             "video:ownerId_:videoId_:accessKey",
             "clip:ownerId_:videoId_:accessKey",
 
-            // links with a duplicate author id and/or zipper query param
             "clips:duplicateId",
             "videos:duplicateId",
             "search/video"

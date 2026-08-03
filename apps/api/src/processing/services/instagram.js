@@ -1,11 +1,11 @@
 import { randomBytes } from "node:crypto";
 import { resolveRedirectingURL } from "../url.js";
-import { genericUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 import { createStream } from "../../stream/manage.js";
 import { getCookie, updateCookie } from "../cookie/manager.js";
 
 const commonHeaders = {
-    "user-agent": genericUserAgent,
+    "user-agent": browserUserAgent,
     "sec-gpc": "1",
     "sec-fetch-site": "same-origin",
     "x-ig-app-id": "936619743392459"
@@ -37,7 +37,7 @@ const embedHeaders = {
     "Sec-Fetch-Site": "none",
     "Sec-Fetch-User": "?1",
     "Upgrade-Insecure-Requests": "1",
-    "User-Agent": genericUserAgent,
+    "User-Agent": browserUserAgent,
 }
 
 const cachedDtsg = {
@@ -327,8 +327,6 @@ export default function instagram(obj) {
                     return {
                         type,
                         url: proxyFile || url,
-                        /* thumbnails have `Cross-Origin-Resource-Policy`
-                        ** set to `same-origin`, so we need to proxy them */
                         thumb: createStream({
                             service: "instagram",
                             type: "proxy",
@@ -385,8 +383,6 @@ export default function instagram(obj) {
                     return {
                         type,
                         url: proxyFile || url,
-                        /* thumbnails have `Cross-Origin-Resource-Policy`
-                        ** set to `same-origin`, so we need to always proxy them */
                         thumb: createStream({
                             service: "instagram",
                             type: "proxy",
@@ -424,23 +420,18 @@ export default function instagram(obj) {
             const bearer = getCookie('instagram_bearer');
             const token = bearer?.values()?.token;
 
-            // get media_id for mobile api, three methods
             let media_id = await getMediaId(id);
             if (!media_id && token) media_id = await getMediaId(id, { token });
             if (!media_id && cookie) media_id = await getMediaId(id, { cookie });
 
-            // mobile api (bearer)
             if (media_id && token) data = await requestMobileApi(media_id, { token });
 
-            // mobile api (no cookie, cookie)
             if (media_id && !hasData(data)) data = await requestMobileApi(media_id);
             if (media_id && cookie && !hasData(data)) data = await requestMobileApi(media_id, { cookie });
 
-            // html embed (no cookie, cookie)
             if (!hasData(data)) data = await requestHTML(id);
             if (!hasData(data) && cookie) data = await requestHTML(id, cookie);
 
-            // web app graphql api (no cookie, cookie)
             if (!hasData(data)) data = await requestGQL(id);
             if (!hasData(data) && cookie) data = await requestGQL(id, cookie);
         } catch {}
@@ -524,9 +515,6 @@ export default function instagram(obj) {
         return resolveRedirectingURL(
             `https://www.instagram.com/share/${shareId}/`,
             dispatcher,
-            // for some reason instagram decides to return HTML
-            // instead of a redirect when requesting with a normal
-            // browser user-agent
             {'User-Agent': 'curl/7.88.1'}
         ).then(match => instagram({
             ...obj, ...match,

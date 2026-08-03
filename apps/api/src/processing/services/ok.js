@@ -1,4 +1,4 @@
-import { genericUserAgent, env } from "../../config.js";
+import { browserUserAgent, env } from "../../config/index.js";
 
 const resolutions = {
     "ultra": "2160",
@@ -15,7 +15,7 @@ export default async function(o) {
     let quality = o.quality === "max" ? "2160" : o.quality;
 
     let html = await fetch(`https://ok.ru/video/${o.id}`, {
-        headers: { "user-agent": genericUserAgent }
+        headers: { "user-agent": browserUserAgent }
     }).then(r => r.text()).catch(() => {});
 
     if (!html) return { error: "fetch.fail" };

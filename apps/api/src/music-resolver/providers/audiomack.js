@@ -1,8 +1,3 @@
-/**
- * Provider: Audiomack
- * Busca músicas via API pública do Audiomack.
- * Audiomack é uma plataforma de streaming gratuita.
- */
 
 const SEARCH_URL = 'https://api.audiomack.com/v1/music/search'
 

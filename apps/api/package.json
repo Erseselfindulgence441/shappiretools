@@ -2,7 +2,7 @@
   "name": "shappire-backend",
   "version": "1.0.0",
   "type": "module",
-  "description": "Backend do Shappire - download de midia 100% local usando engine do Cobalt",
+  "description": "Backend do Shappire para processamento local de mídia",
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js"

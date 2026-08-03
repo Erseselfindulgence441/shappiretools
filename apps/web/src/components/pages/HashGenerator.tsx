@@ -10,7 +10,6 @@ async function computeHash(algorithm: Algorithm, text: string): Promise<string> 
   return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
-// MD5 puro (não disponível em SubtleCrypto)
 function md5(input: string): string {
   function safeAdd(x: number, y: number) { const lsw = (x & 0xffff) + (y & 0xffff); return (((x >> 16) + (y >> 16) + (lsw >> 16)) << 16) | (lsw & 0xffff) }
   function bitRotateLeft(num: number, cnt: number) { return (num << cnt) | (num >>> (32 - cnt)) }

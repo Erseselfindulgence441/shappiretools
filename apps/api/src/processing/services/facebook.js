@@ -1,7 +1,7 @@
-import { genericUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 
 const headers = {
-    'User-Agent': genericUserAgent,
+    'User-Agent': browserUserAgent,
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.5',
     'Sec-Fetch-Mode': 'navigate',

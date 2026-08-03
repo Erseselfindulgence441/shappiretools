@@ -1,5 +1,5 @@
 import HLSParser from "hls-parser";
-import { env } from "../../config.js";
+import { env } from "../../config/index.js";
 
 let _token;
 

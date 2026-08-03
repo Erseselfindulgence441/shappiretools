@@ -1,8 +1,3 @@
-/**
- * Provider: YouTube (via Piped API — instância pública sem bloqueio)
- * Busca músicas no YouTube sem precisar de autenticação ou cookies.
- * Piped é um frontend alternativo do YouTube com API pública.
- */
 
 const PIPED_INSTANCES = [
   'https://pipedapi.kavin.rocks',
@@ -24,7 +19,6 @@ async function search(title, artist) {
   const query = `${artist} ${title}`.trim()
   if (!query) return null
 
-  // Tentar até 2 instâncias
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const base = getBaseUrl()
@@ -50,7 +44,6 @@ async function search(title, artist) {
         const artistMatch = a.includes(normalizedArtist) || normalizedArtist.includes(a)
 
         if (titleMatch && artistMatch) {
-          // Retornar URL do SoundCloud-style (o backend processa via Cobalt)
           const videoUrl = `https://youtube.com${item.url}`
           return { url: videoUrl, confidence: 0.85 }
         }
@@ -60,7 +53,6 @@ async function search(title, artist) {
         }
       }
 
-      // Primeiro resultado como fallback
       const first = items.find(i => i.type === 'stream')
       if (first) {
         return { url: `https://youtube.com${first.url}`, confidence: 0.35 }

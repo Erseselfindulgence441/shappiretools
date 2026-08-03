@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'fs/promises';
 import { Red, Green, Yellow } from '../../misc/console-text.js';
 import { parse as parseSetCookie, splitCookiesString } from 'set-cookie-parser';
 import * as cluster from '../../misc/cluster.js';
-import { isCluster } from '../../config.js';
+import { isCluster } from '../../config/index.js';
 
 const WRITE_INTERVAL = 60000;
 const VALID_SERVICES = new Set([

@@ -76,14 +76,14 @@ export function createResponse(responseType, responseData) {
 
                 if (!response.audio.format) {
                     if (response.type === "audio") {
-                        // audio response without a format is invalid
+                        
                         return internalError();
                     }
                     delete response.audio;
                 }
 
                 if (!response.output.type || !response.output.filename) {
-                    // response without a type or filename is invalid
+                    
                     return internalError();
                 }
                 break;
@@ -116,7 +116,7 @@ export function createResponse(responseType, responseData) {
 }
 
 export function normalizeRequest(request) {
-    // TODO: remove after backwards compatibility period
+    
     if ("localProcessing" in request && typeof request.localProcessing === "boolean") {
         request.localProcessing = request.localProcessing ? "preferred" : "disabled";
     }

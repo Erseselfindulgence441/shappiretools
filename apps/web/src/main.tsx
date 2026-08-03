@@ -4,7 +4,6 @@ import App from './App'
 import { I18nProvider } from './i18n'
 import './styles/index.css'
 
-// Console warning para quem abrir DevTools
 console.log(
   '%c⚠ Ei, sei que você está aqui, bobinho.',
   'color: #ff6b6b; font-size: 18px; font-weight: bold; padding: 8px 0;'

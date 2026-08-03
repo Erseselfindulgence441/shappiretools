@@ -1,7 +1,5 @@
-import { env } from "../../config.js";
+import { env } from "../../config/index.js";
 import { resolveRedirectingURL } from "../url.js";
-
-// TO-DO: higher quality downloads (currently requires an account)
 
 function getBest(content) {
     return content?.filter(v => v.baseUrl || v.url)

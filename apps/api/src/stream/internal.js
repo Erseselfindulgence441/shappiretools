@@ -3,7 +3,7 @@ import { Readable } from "node:stream";
 import { closeRequest, getHeaders, pipe } from "./shared.js";
 import { handleHlsPlaylist, isHlsResponse, probeInternalHLSTunnel } from "./internal-hls.js";
 
-const CHUNK_SIZE = BigInt(8e6); // 8 MB
+const CHUNK_SIZE = BigInt(8e6); 
 const min = (a, b) => a < b ? a : b;
 
 const serviceNeedsChunks = new Set(["youtube", "vk"]);

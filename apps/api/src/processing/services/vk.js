@@ -1,4 +1,4 @@
-import { env } from "../../config.js";
+import { env } from "../../config/index.js";
 
 const resolutions = ["2160", "1440", "1080", "720", "480", "360", "240", "144"];
 
@@ -13,7 +13,6 @@ if (!clientSecret) {
     console.warn('[config] VK_CLIENT_SECRET is not configured; VK downloads are disabled.');
 }
 
-// used in stream/shared.js for accessing media files
 export const vkClientAgent = "com.vk.vkvideo.prod/1955 (iPhone, iOS 16.7.15, iPhone10,4, Scale/2.0) SAK/1.135";
 
 const cachedToken = {

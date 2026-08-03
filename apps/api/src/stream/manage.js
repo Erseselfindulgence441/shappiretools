@@ -5,13 +5,12 @@ import { randomBytes } from "crypto";
 import { strict as assert } from "assert";
 import { setMaxListeners } from "node:events";
 
-import { env } from "../config.js";
+import { env } from "../config/index.js";
 import { closeRequest } from "./shared.js";
 import { decryptStream, encryptStream } from "../misc/crypto.js";
 import { hashHmac } from "../security/secrets.js";
 import { zip } from "../misc/utils.js";
 
-// optional dependency
 const freebind = env.freebindCIDR && await import('freebind').catch(() => {});
 
 const streamCache = new Store('streams');
@@ -44,13 +43,9 @@ export function createStream(obj) {
             isHLS: obj.isHLS || false,
             originalRequest: obj.originalRequest,
 
-            // url to a subtitle file
             subtitles: obj.subtitles,
         };
 
-    // FIXME: this is now a Promise, but it is not awaited
-    //        here. it may happen that the stream is not
-    //        stored in the Store before it is requested.
     streamCache.set(
         streamID,
         encryptStream(streamData, iv, secret),
@@ -158,7 +153,6 @@ export function createInternalStream(url, obj = {}, isSubtitles) {
         headers = new Map(Object.entries(obj.headers));
     }
 
-    // subtitles don't need special treatment unlike big media files
     const service = isSubtitles ? `${obj.service}-subtitles` : obj.service;
 
     internalStreamCache.set(streamID, {
@@ -278,7 +272,7 @@ function wrapStream(streamInfo) {
         streamInfo.subtitles = createInternalStream(
             streamInfo.subtitles,
             streamInfo,
-            /*isSubtitles=*/true
+            true
         );
     }
 

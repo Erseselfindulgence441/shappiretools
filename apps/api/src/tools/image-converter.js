@@ -5,7 +5,6 @@ import sharp from 'sharp'
 const MAX_FILE_SIZE = 20 * 1024 * 1024
 const MAX_INPUT_PIXELS = 50_000_000
 
-// Formatos de entrada suportados
 const inputFormats = new Set(['png', 'jpeg', 'webp', 'gif', 'tiff', 'svg', 'bmp'])
 const inputMimeTypes = new Set([
   'image/png', 'image/jpeg', 'image/webp', 'image/gif',
@@ -16,7 +15,6 @@ const extensionFormats = new Set([
   '.tif', '.tiff', '.svg', '.ico', '.heic', '.heif',
 ])
 
-// Formatos de saída suportados (apenas libs, sem software externo)
 const outputFormats = new Set([
   'png', 'jpeg', 'webp', 'avif', 'gif', 'tiff', 'bmp', 'ico',
 ])
@@ -67,10 +65,6 @@ async function toBmp(pipeline) {
   return { data: bitmap, info: { width: info.width, height: info.height, size: bitmap.length } }
 }
 
-/**
- * Gera ICO (favicon) multi-resolução.
- * ICO é basicamente um container com vários PNGs dentro.
- */
 async function toIco(pipeline) {
   const sizes = [16, 32, 48, 64]
   const images = []
@@ -80,33 +74,29 @@ async function toIco(pipeline) {
     images.push(png)
   }
 
-  // ICO header
   const headerSize = 6 + images.length * 16
   let dataOffset = headerSize
   const totalSize = headerSize + images.reduce((sum, img) => sum + img.length, 0)
   const ico = Buffer.alloc(totalSize)
 
-  // ICONDIR header
-  ico.writeUInt16LE(0, 0)      // reserved
-  ico.writeUInt16LE(1, 2)      // type (1 = ICO)
-  ico.writeUInt16LE(images.length, 4) // count
+  ico.writeUInt16LE(0, 0)
+  ico.writeUInt16LE(1, 2)
+  ico.writeUInt16LE(images.length, 4)
 
-  // ICONDIRENTRY for each image
   for (let i = 0; i < images.length; i++) {
     const size = sizes[i]
     const offset = 6 + i * 16
-    ico.writeUInt8(size === 256 ? 0 : size, offset)      // width
-    ico.writeUInt8(size === 256 ? 0 : size, offset + 1)  // height
-    ico.writeUInt8(0, offset + 2)                         // color palette
-    ico.writeUInt8(0, offset + 3)                         // reserved
-    ico.writeUInt16LE(1, offset + 4)                      // color planes
-    ico.writeUInt16LE(32, offset + 6)                     // bits per pixel
-    ico.writeUInt32LE(images[i].length, offset + 8)       // data size
-    ico.writeUInt32LE(dataOffset, offset + 12)            // data offset
+    ico.writeUInt8(size === 256 ? 0 : size, offset)
+    ico.writeUInt8(size === 256 ? 0 : size, offset + 1)
+    ico.writeUInt8(0, offset + 2)
+    ico.writeUInt8(0, offset + 3)
+    ico.writeUInt16LE(1, offset + 4)
+    ico.writeUInt16LE(32, offset + 6)
+    ico.writeUInt32LE(images[i].length, offset + 8)
+    ico.writeUInt32LE(dataOffset, offset + 12)
     dataOffset += images[i].length
   }
 
-  // Image data
   let writePos = headerSize
   for (const img of images) {
     img.copy(ico, writePos)
@@ -171,9 +161,8 @@ export async function convertImage(req, res) {
       failOn: 'warning',
     }
 
-    // SVG precisa de tratamento especial no sharp
     if (isSvg) {
-      sharpOptions.density = 300 // alta resolução para SVG
+      sharpOptions.density = 300
     }
 
     const probe = sharp(req.file.buffer, sharpOptions)
@@ -186,7 +175,6 @@ export async function convertImage(req, res) {
 
     let pipeline = sharp(req.file.buffer, sharpOptions).rotate()
 
-    // Crop antes do resize
     if (cropEnabled && cropW > 0 && cropH > 0) {
       pipeline = pipeline.extract({
         left: Math.max(0, Math.round(cropX)),

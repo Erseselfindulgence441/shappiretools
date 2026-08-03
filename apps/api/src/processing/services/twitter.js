@@ -1,5 +1,5 @@
 import HLS from "hls-parser";
-import { genericUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 import { createStream } from "../../stream/manage.js";
 import { getCookie, updateCookie } from "../cookie/manager.js";
 
@@ -16,14 +16,13 @@ const tweetFeatures = JSON.stringify({"rweb_video_screen_enabled":false,"payment
 const tweetFieldToggles = JSON.stringify({"withArticleRichContentState":true,"withArticlePlainText":false,"withGrokAnalyze":false,"withDisallowedReplyControls":false});
 
 const commonHeaders = {
-    "user-agent": genericUserAgent,
+    "user-agent": browserUserAgent,
     ...(twitterBearerToken ? { authorization: `Bearer ${twitterBearerToken}` } : {}),
     "x-twitter-client-language": "en",
     "x-twitter-active-user": "yes",
     "accept-language": "en"
 }
 
-// fix all videos affected by the container bug in twitter muxer (took them over two weeks to fix it????)
 const TWITTER_EPOCH = 1288834974657n;
 const badContainerStart = new Date(1701446400000);
 const badContainerEnd = new Date(1702605600000);
@@ -31,8 +30,6 @@ const badContainerEnd = new Date(1702605600000);
 function needsFixing(media) {
     const representativeId = media.source_status_id_str ?? media.id_str;
 
-    // syndication api doesn't have media ids in its response,
-    // so we just assume it's all good
     if (!representativeId) return false;
 
     const mediaTimestamp = new Date(
@@ -75,8 +72,6 @@ const getGuestToken = async (dispatcher, forceReload = false) => {
 }
 
 const requestSyndication = async(dispatcher, tweetId) => {
-    // thank you
-    // https://github.com/yt-dlp/yt-dlp/blob/05c8023a27dd37c49163c0498bf98e3e3c1cb4b9/yt_dlp/extractor/twitter.py#L1334
     const token = (id) => ((Number(id) / 1e15) * Math.PI).toString(36).replace(/(0+|\.)/g, '');
     const syndicationUrl = new URL("https://cdn.syndication.twimg.com/tweet-result");
 
@@ -85,7 +80,7 @@ const requestSyndication = async(dispatcher, tweetId) => {
 
     const result = await fetch(syndicationUrl, {
         headers: {
-            "user-agent": genericUserAgent
+            "user-agent": browserUserAgent
         },
         dispatcher
     });
@@ -131,7 +126,6 @@ const requestTweet = async(dispatcher, tweetId, token, cookie) => {
     let result = await fetch(graphqlTweetURL, { headers, dispatcher });
     updateCookie(cookie, result.headers);
 
-    // we might have been missing the ct0 cookie, retry
     if (result.status === 403 && result.headers.get('set-cookie')) {
         const cookieValues = cookie?.values();
         if (cookieValues?.ct0) {
@@ -221,7 +215,6 @@ export default async function({ id, index, toGif, dispatcher, alwaysProxy, subti
     let tweet = await requestTweet(dispatcher, id, guestToken);
 
     if ([403, 404, 429].includes(tweet.status)) {
-        // get new token & retry if old one expired
         if ([403, 429].includes(tweet.status)) {
             guestToken = await getGuestToken(dispatcher, true);
         }
@@ -234,7 +227,6 @@ export default async function({ id, index, toGif, dispatcher, alwaysProxy, subti
         media = await extractGraphqlMedia(tweet, dispatcher, id, guestToken, cookie);
     } catch {}
 
-    // if graphql requests fail, then resort to tweet embed api
     if (!media || 'error' in media) {
         try {
             tweet = await requestSyndication(dispatcher, id);
@@ -252,7 +244,6 @@ export default async function({ id, index, toGif, dispatcher, alwaysProxy, subti
         return { error: media?.error || "fetch.empty" };
     }
 
-    // check if there's a video at given index (/video/<index>)
     if (index >= 0 && index < media?.length) {
         media = [media[index]]
     }

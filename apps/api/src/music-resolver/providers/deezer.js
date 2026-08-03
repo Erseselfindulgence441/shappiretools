@@ -1,8 +1,3 @@
-/**
- * Provider: Deezer (API pública de busca)
- * Retorna link para preview de 30s — mas útil para identificar
- * e redirecionar para uma fonte completa via ISRC.
- */
 
 const SEARCH_URL = 'https://api.deezer.com/search'
 
@@ -33,8 +28,7 @@ async function search(title, artist) {
       const artistMatch = a.includes(normalizedArtist) || normalizedArtist.includes(a)
 
       if (titleMatch && artistMatch && track.preview) {
-        // Deezer preview é 128kbps 30s — usamos como last resort
-        // Mas retornamos o link do Deezer pra que outro sistema possa usar
+        
         return { url: track.preview, confidence: 0.3 }
       }
     }

@@ -4,11 +4,10 @@ import ivm from "isolated-vm";
 import { fetch, Request } from "undici";
 import { Innertube, Platform, Session } from "youtubei.js";
 
-import { env } from "../../config.js";
+import { env } from "../../config/index.js";
 import { getCookie } from "../cookie/manager.js";
 import { getYouTubeSession } from "../helpers/youtube-session.js";
 
-// https://github.com/LuanRT/YouTube.js/pull/1052
 Platform.shim.eval = async (data) => {
   const isolate = new ivm.Isolate();
 
@@ -22,7 +21,7 @@ Platform.shim.eval = async (data) => {
   }
 }
 
-const PLAYER_REFRESH_PERIOD = 1000 * 60 * 15; // ms
+const PLAYER_REFRESH_PERIOD = 1000 * 60 * 15; 
 
 let innertube, lastRefreshedAt;
 
@@ -153,17 +152,12 @@ const getSubtitles = async (info, dispatcher, subtitleLang) => {
         }
     }
 
-    // if we have exp=xpe in the url, then captions are
-    // locked down and can't be accessed without a yummy potoken,
-    // so instead we just use subtitles from HLS
-
     const hlsVariants = await getHlsVariants(
         info.streaming_data.hls_manifest_url,
         dispatcher
     );
     if (hlsVariants?.error) return;
 
-    // all variants usually have the same set of subtitles
     const hlsSubtitles = hlsVariants[0]?.subtitles;
     if (!hlsSubtitles?.length) return;
 
@@ -193,7 +187,6 @@ export default async function (o) {
     let useHLS = o.youtubeHLS;
     let innertubeClient = o.innertubeClient || env.customInnertubeClient || "IOS";
 
-    // HLS playlists from the iOS client don't contain the av1 video format.
     if (useHLS && o.codec === "av1") {
         useHLS = false;
     }
@@ -202,8 +195,6 @@ export default async function (o) {
         innertubeClient = "IOS";
     }
 
-    // iOS client doesn't have adaptive formats of resolution >1080p,
-    // so we use the WEB_EMBEDDED client instead for those cases
     let useSession =
         env.ytSessionServer && (
             (
@@ -216,7 +207,6 @@ export default async function (o) {
             )
         );
 
-    // we can get subtitles reliably only from the iOS client
     if (o.subtitleLang) {
         innertubeClient = "IOS";
         useSession = false;
@@ -328,8 +318,6 @@ export default async function (o) {
         return { error: "content.too_long" };
     }
 
-    // return a critical error if returned video is "Video Not Available"
-    // or a similar stub by youtube
     if (basicInfo.id !== o.id) {
         return {
             error: "fetch.fail",
@@ -376,8 +364,6 @@ export default async function (o) {
 
         audio = selected.audio.find(i => i.isDefault);
 
-        // some videos (mainly those with AI dubs) don't have any tracks marked as default
-        // why? god knows, but we assume that a default track is marked as such in the title
         if (!audio) {
             audio = selected.audio.find(i => i.name.endsWith("original"));
         }
@@ -397,7 +383,6 @@ export default async function (o) {
         selected.subtitles = [];
         video = selected;
     } else {
-        // i miss typescript so bad
         const sorted_formats = {
             h264: {
                 video: [],
@@ -423,7 +408,6 @@ export default async function (o) {
             (format.mime_type.includes(codecList[pCodec].videoCodec)
                 || format.mime_type.includes(codecList[pCodec].audioCodec));
 
-        // sort formats & weed out bad ones
         info.streaming_data.adaptive_formats.sort((a, b) =>
             Number(b.bitrate) - Number(a.bitrate)
         ).forEach(format => {
@@ -457,11 +441,9 @@ export default async function (o) {
             if (codec === "av1") codec = "vp9";
             else if (codec === "vp9") codec = "av1";
 
-            // if there's no higher quality fallback, then use h264
             if (noBestMedia()) codec = "h264";
         }
 
-        // if there's no proper combo of av1, vp9, or h264, then give up
         if (noBestMedia()) {
             return { error: "youtube.no_matching_format" };
         }

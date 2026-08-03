@@ -1,4 +1,4 @@
-import { env } from "../../config.js";
+import { env } from "../../config/index.js";
 import { resolveRedirectingURL } from "../url.js";
 
 const cachedID = {
@@ -117,7 +117,6 @@ export async function getSoundCloudTrack(obj) {
 
     const mp3Media = findBestForPreset(json.media.transcodings, "mp3");
 
-    // use mp3 if present if user prefers it or if opus isn't available
     if (mp3Media && (obj.format === "mp3" || !selectedStream)) {
         selectedStream = mp3Media;
         bestAudio = "mp3"

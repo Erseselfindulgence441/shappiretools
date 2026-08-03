@@ -1,7 +1,6 @@
 import "dotenv/config";
 
-const genericUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36";
-const cobaltUserAgent = "cobalt/11.7.1 (+https://github.com/imputnet/cobalt)";
+const browserUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36";
 
 const enabledServices = new Set([
     "twitter", "tiktok", "instagram",
@@ -74,8 +73,7 @@ export {
     env,
     canonicalEnv,
     isCluster,
-    genericUserAgent,
-    cobaltUserAgent,
+    browserUserAgent,
     setTunnelPort,
     updateEnv,
 };

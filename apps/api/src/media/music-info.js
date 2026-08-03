@@ -1,6 +1,6 @@
-import { extract, normalizeURL } from './processing/url.js'
-import { getSoundCloudTrack } from './processing/services/soundcloud.js'
-import { resolveAudioSource } from './music-resolver/index.js'
+import { extract, normalizeURL } from '../processing/url.js'
+import { getSoundCloudTrack } from '../processing/services/soundcloud.js'
+import { resolveAudioSource } from '../music-resolver/index.js'
 
 const supportedFormats = ['mp3', 'wav', 'flac']
 
@@ -43,7 +43,6 @@ export async function inspectMusic(req, res) {
   const host = url.hostname.replace(/^www\./, '')
 
   try {
-    // ─── SoundCloud (processável direto) ───
     if (host.endsWith('soundcloud.com') || host === 'on.soundcloud.com') {
       const normalized = normalizeURL(rawUrl)
       const parsed = extract(normalized)
@@ -63,7 +62,6 @@ export async function inspectMusic(req, res) {
       }))
     }
 
-    // ─── Spotify (resolver via SoundCloud) ───
     if (host.endsWith('open.spotify.com') || host.endsWith('spotify.com')) {
       const data = await oEmbed(url.toString(), 'https://open.spotify.com/oembed')
       const track = splitTrackTitle(data.title)
@@ -71,7 +69,6 @@ export async function inspectMusic(req, res) {
       const artist = track.artist || data.author_name || 'Artista desconhecido'
       const artwork = data.thumbnail_url || null
 
-      // Tentar encontrar fonte de áudio automaticamente
       const resolved = await resolveAudioSource(title, artist)
 
       if (resolved) {
@@ -88,7 +85,6 @@ export async function inspectMusic(req, res) {
         }))
       }
 
-      // Se não encontrou fonte, informar
       return res.json(musicResponse({
         provider: 'Spotify',
         processable: false,
@@ -101,14 +97,12 @@ export async function inspectMusic(req, res) {
       }))
     }
 
-    // ─── YouTube Music (resolver via providers) ───
     if (host.endsWith('music.youtube.com') || (host.endsWith('youtube.com') && url.pathname.startsWith('/watch')) || host === 'youtu.be') {
       const data = await oEmbed(url.toString(), 'https://www.youtube.com/oembed')
       const title = data.title || 'Faixa'
       const artist = data.author_name || 'Artista desconhecido'
       const artwork = data.thumbnail_url || null
 
-      // Tentar encontrar fonte de áudio automaticamente
       const resolved = await resolveAudioSource(title, artist)
 
       if (resolved) {

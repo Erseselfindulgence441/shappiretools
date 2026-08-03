@@ -1,4 +1,4 @@
-// Stub - sem cluster no Shappire
+
 export const isPrimary = true;
 export const isWorker = false;
 export const broadcast = () => {};

@@ -1,7 +1,3 @@
-/**
- * Provider: Internet Archive
- * Busca áudio na maior biblioteca digital pública do mundo.
- */
 
 const SEARCH_URL = 'https://archive.org/advancedsearch.php'
 
@@ -35,7 +31,7 @@ async function search(title, artist) {
       const artistMatch = a.includes(normalizedArtist) || normalizedArtist.includes(a)
 
       if (titleMatch && artistMatch && doc.identifier) {
-        // Retornar link da página — o sistema depois resolve o arquivo de áudio
+        
         const pageUrl = `https://archive.org/details/${doc.identifier}`
         return { url: pageUrl, confidence: 0.6 }
       }

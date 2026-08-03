@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://shappiretools.shardweb.app'
+import { API_URL } from '../../config/constants'
 
 export function StatsCounter() {
   const [total, setTotal] = useState(0)

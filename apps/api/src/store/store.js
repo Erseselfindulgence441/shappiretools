@@ -1,4 +1,3 @@
-// Store em memoria - sem Redis no Shappire
 export default class Store {
     constructor(name) {
         this.name = name;

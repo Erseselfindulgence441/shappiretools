@@ -9,7 +9,7 @@ const questions = [
   ],
   [
     'Por que o YouTube não é suportado?',
-    'O YouTube exige autenticação (login) para permitir o acesso a vídeos a partir de servidores. Isso requer cookies de conta, tokens de sessão e infraestrutura com IPs residenciais — custos altos que tornam o suporte inviável de manter de forma gratuita e confiável. Alternativas: use o Cobalt (cobalt.tools) ou yt-dlp no seu computador.',
+    'O YouTube exige autenticação (login) para permitir o acesso a vídeos a partir de servidores. Isso requer cookies de conta, tokens de sessão e infraestrutura com IPs residenciais — custos altos que tornam o suporte inviável de manter de forma gratuita e confiável. Como alternativa, use o yt-dlp no seu computador.',
   ],
   [
     'Os arquivos mantêm a qualidade?',

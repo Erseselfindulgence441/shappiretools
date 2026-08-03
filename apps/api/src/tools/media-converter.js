@@ -10,7 +10,7 @@ try {
   ffmpegPath = 'ffmpeg'
 }
 
-const MAX_FILE_SIZE = 200 * 1024 * 1024 // 200 MB
+const MAX_FILE_SIZE = 200 * 1024 * 1024
 const allowedInputMimes = new Set([
   'video/mp4', 'video/webm', 'video/x-matroska', 'video/avi',
   'video/x-msvideo', 'video/quicktime', 'video/x-flv', 'video/ogg',
@@ -84,24 +84,20 @@ export async function convertMedia(req, res) {
   const mode = req.body.mode || 'convert'
   const customFilename = req.body.filename || ''
 
-  // Build ffmpeg args
   const args = ['-loglevel', 'error', '-i', 'pipe:0']
 
   switch (mode) {
     case 'audio':
-      // Extrair apenas áudio
       args.push('-vn')
       if (req.body.audioBitrate) args.push('-b:a', `${req.body.audioBitrate}k`)
       break
 
     case 'compress':
-      // Compressão com CRF
       const crf = Math.min(51, Math.max(0, Number(req.body.crf) || 28))
       args.push('-c:v', 'libx264', '-crf', String(crf), '-preset', 'fast', '-c:a', 'aac')
       break
 
     case 'resize':
-      // Redimensionar
       const resizeCropFilter = cropFilterFromRequest(req.body)
       const width = Number(req.body.width) || -2
       const height = Number(req.body.height) || -2
@@ -166,11 +162,9 @@ function runFfmpeg(args, inputBuffer, res, contentType, filename) {
     }
   })
 
-  // Enviar o arquivo para stdin do ffmpeg
   process.stdin.write(inputBuffer)
   process.stdin.end()
 
-  // Timeout de 5 minutos
   const timeout = setTimeout(() => {
     process.kill('SIGTERM')
     if (!res.headersSent) {

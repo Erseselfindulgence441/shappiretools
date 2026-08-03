@@ -1,6 +1,6 @@
 import stream from "../stream/stream.js";
 import { getInternalTunnel } from "../stream/manage.js";
-import { setTunnelPort } from "../config.js";
+import { setTunnelPort } from "../config/index.js";
 import { Green } from "../misc/console-text.js";
 import express from "express";
 

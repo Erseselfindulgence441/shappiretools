@@ -1,4 +1,4 @@
-import { genericUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 import { resolveRedirectingURL } from "../url.js";
 
 const videoRegex = /"url":"(https:\/\/v1\.pinimg\.com\/videos\/.*?)"/g;
@@ -17,7 +17,7 @@ export default async function(o) {
     if (!id) return { error: "fetch.fail" };
 
     const html = await fetch(`https://www.pinterest.com/pin/${id}/`, {
-        headers: { "user-agent": genericUserAgent }
+        headers: { "user-agent": browserUserAgent }
     }).then(r => r.text()).catch(() => {});
 
     const invalidPin = html.match(notFoundRegex);

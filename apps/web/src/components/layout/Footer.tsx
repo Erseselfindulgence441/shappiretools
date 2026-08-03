@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useI18n } from '../../i18n'
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://shappiretools.shardweb.app'
+import { API_URL } from '../../config/constants'
 
 export function Footer() {
   const { t } = useI18n()

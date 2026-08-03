@@ -1,5 +1,5 @@
 import HLS from "hls-parser";
-import { env } from "../../config.js";
+import { env } from "../../config/index.js";
 import { merge } from '../../misc/utils.js';
 import { getCookie } from "../cookie/manager.js";
 
@@ -195,7 +195,6 @@ export default async function(obj) {
     let info = await requestApiInfo(bearerToken, obj.id, obj.password);
     let response;
 
-    // auth error, try to refresh the token
     if (info?.error_code === 8003) {
         const newBearer = await getBearer(true);
         if (!newBearer) {
@@ -204,7 +203,6 @@ export default async function(obj) {
         info = await requestApiInfo(newBearer, obj.id, obj.password);
     }
 
-    // if there's still no info, then return a generic error
     if (!info || info.error_code) {
         return { error: "fetch.empty" };
     }

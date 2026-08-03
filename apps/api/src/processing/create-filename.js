@@ -1,5 +1,3 @@
-// characters that are disallowed on windows:
-// https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#naming-conventions
 const characterMap = {
     '<':  '＜',
     '>':  '＞',
@@ -13,7 +11,6 @@ const characterMap = {
 };
 
 export const sanitizeString = (string) => {
-    // remove any potential control characters the string might contain
     string = string.replace(/[\u0000-\u001F\u007F-\u009F]/g, "");
 
     for (const [ char, replacement ] of Object.entries(characterMap)) {

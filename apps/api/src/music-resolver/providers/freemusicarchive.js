@@ -1,7 +1,3 @@
-/**
- * Provider: Free Music Archive
- * Busca áudio livre de direitos autorais.
- */
 
 const SEARCH_URL = 'https://freemusicarchive.org/api/get/tracks.json'
 

@@ -1,7 +1,7 @@
-import { genericUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 
 const craftHeaders = id => ({
-    "user-agent": genericUserAgent,
+    "user-agent": browserUserAgent,
     "content-type": "application/json",
     origin: "https://www.loom.com",
     referer: `https://www.loom.com/share/${id}`,

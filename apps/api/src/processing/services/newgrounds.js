@@ -1,10 +1,10 @@
-import { genericUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 
 const getVideo = async ({ id, quality }) => {
     const json = await fetch(`https://www.newgrounds.com/portal/video/${id}`, {
         headers: {
-            "User-Agent": genericUserAgent,
-            "X-Requested-With": "XMLHttpRequest", // required to get the JSON response
+            "User-Agent": browserUserAgent,
+            "X-Requested-With": "XMLHttpRequest",
         }
     })
     .then(r => r.json())
@@ -52,7 +52,7 @@ const getVideo = async ({ id, quality }) => {
 const getMusic = async ({ id }) => {
     const html = await fetch(`https://www.newgrounds.com/audio/listen/${id}`, {
         headers: {
-            "User-Agent": genericUserAgent,
+            "User-Agent": browserUserAgent,
         }
     })
     .then(r => r.text())

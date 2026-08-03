@@ -1,6 +1,6 @@
 import { strict as assert } from "node:assert";
 
-import { env } from "../config.js";
+import { env } from "../config/index.js";
 import { createResponse } from "../processing/request.js";
 
 import { testers } from "./service-patterns.js";
@@ -63,7 +63,6 @@ export default async function({ host, patternMatch, params, authType }) {
             });
         }
 
-        // youtubeHLS will be fully removed in the future
         let youtubeHLS = params.youtubeHLS;
         const hlsEnv = env.enableDeprecatedYoutubeHls;
 

@@ -3,13 +3,13 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const STATS_FILE = join(__dirname, '..', 'data', 'stats.json')
+const STATS_FILE = join(__dirname, '..', '..', 'data', 'stats.json')
 
 const defaultStats = {
   totalActions: 0,
   downloads: 0,
   conversions: 0,
-  history: [], // últimas 50 ações
+  history: [],
 }
 
 let stats = { ...defaultStats }
@@ -32,15 +32,8 @@ async function save() {
   }
 }
 
-// Carregar ao iniciar
 await load()
 
-/**
- * Registra uma ação (download ou conversão).
- * @param {'download' | 'conversion'} type
- * @param {string} service - Ex: 'tiktok', 'youtube', 'image', 'media'
- * @param {string} detail - Ex: 'mp4', 'png→webp'
- */
 export function trackAction(type, service, detail = '') {
   stats.totalActions++
   if (type === 'download') stats.downloads++
@@ -53,14 +46,11 @@ export function trackAction(type, service, detail = '') {
     time: Date.now(),
   })
 
-  // Manter apenas as últimas 50
   if (stats.history.length > 50) stats.history.length = 50
 
-  // Salvar async (não bloqueia)
   save()
 }
 
-/** Retorna as estatísticas atuais. */
 export function getStats() {
   return {
     totalActions: stats.totalActions,

@@ -1,5 +1,5 @@
 import HLS from "hls-parser";
-import { env } from "../../config.js";
+import { env } from "../../config/index.js";
 
 async function requestJSON(url) {
     try {

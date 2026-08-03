@@ -2,10 +2,10 @@ import { randomBytes } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { env } from './config.js'
+import { env } from '../config/index.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const STORE_FILE = join(__dirname, '..', 'data', 'short-links.json')
+const STORE_FILE = join(__dirname, '..', '..', 'data', 'short-links.json')
 const links = new Map()
 
 function getPublicOrigin(req) {

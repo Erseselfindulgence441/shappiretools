@@ -1,5 +1,5 @@
 import HLS from "hls-parser";
-import { cobaltUserAgent } from "../../config.js";
+import { browserUserAgent } from "../../config/index.js";
 import { createStream } from "../../stream/manage.js";
 
 const extractVideo = async ({ media, filename, dispatcher }) => {
@@ -78,8 +78,6 @@ const extractGif = ({ url, filename }) => {
         return { error: "fetch.empty" };
     }
 
-    // remove downscaling params from gif url
-    // such as "?hh=498&ww=498"
     gifUrl.search = "";
 
     return {
@@ -98,7 +96,7 @@ export default async function ({ user, post, alwaysProxy, dispatcher }) {
 
     const getPost = await fetch(apiEndpoint, {
         headers: {
-            "user-agent": cobaltUserAgent,
+            "user-agent": browserUserAgent,
         },
         dispatcher
     }).then(r => r.json()).catch(() => {});

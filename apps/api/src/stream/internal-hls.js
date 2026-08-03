@@ -58,8 +58,7 @@ const HLS_MIME_TYPES = ["application/vnd.apple.mpegurl", "audio/mpegurl", "appli
 
 export function isHlsResponse(req, streamInfo) {
     return HLS_MIME_TYPES.includes(req.headers['content-type'])
-        // bluesky's cdn responds with wrong content-type for the hls playlist,
-        // so we enforce it here until they fix it
+        
         || (streamInfo.service === 'bsky' && streamInfo.url.endsWith('.m3u8'));
 }
 
@@ -87,8 +86,6 @@ async function getSegmentSize(url, config) {
         return +segmentResponse.headers['content-length'];
     }
 
-    // if the response does not have a content-length
-    // header, we have to compute it ourselves
     let size = 0;
 
     for await (const data of segmentResponse.body) {
@@ -101,7 +98,6 @@ async function getSegmentSize(url, config) {
 export async function probeInternalHLSTunnel(streamInfo) {
     const { url, headers, dispatcher, signal } = streamInfo;
 
-    // remove all falsy headers
     Object.keys(headers).forEach(key => {
         if (!headers[key]) delete headers[key];
     });

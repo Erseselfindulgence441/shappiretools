@@ -1,11 +1,3 @@
-/**
- * Music Resolver — Sistema multi-provider com fallback.
- *
- * Tenta encontrar uma fonte de áudio em múltiplas plataformas.
- * Ordem: SoundCloud → YouTube (Piped) → Bandcamp → Jamendo → Audiomack → Internet Archive → Deezer
- *
- * Para adicionar um novo provider: crie em ./providers/ e adicione no array abaixo.
- */
 
 import { soundcloud } from './providers/soundcloud.js'
 import { piped } from './providers/piped.js'
@@ -15,7 +7,6 @@ import { audiomack } from './providers/audiomack.js'
 import { internetarchive } from './providers/internetarchive.js'
 import { deezer } from './providers/deezer.js'
 
-// Ordem de prioridade
 const providers = [
   soundcloud,
   piped,
@@ -26,14 +17,6 @@ const providers = [
   deezer,
 ]
 
-/**
- * Busca uma fonte de áudio em todos os providers.
- * Retorna a primeira com confiança >= 0.6, ou a melhor encontrada.
- *
- * @param {string} title
- * @param {string} artist
- * @returns {Promise<{ url: string, provider: string, confidence: number } | null>}
- */
 export async function resolveAudioSource(title, artist) {
   if (!title && !artist) return null
 
@@ -49,7 +32,6 @@ export async function resolveAudioSource(title, artist) {
         const entry = { ...result, provider: provider.name }
         results.push(entry)
 
-        // Confiança alta = retorna direto
         if (result.confidence >= 0.8) {
           return entry
         }
@@ -61,7 +43,6 @@ export async function resolveAudioSource(title, artist) {
     }
   }
 
-  // Retorna o melhor resultado (maior confiança, mínimo 0.3)
   if (results.length > 0) {
     results.sort((a, b) => b.confidence - a.confidence)
     if (results[0].confidence >= 0.3) {

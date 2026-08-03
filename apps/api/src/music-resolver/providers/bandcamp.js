@@ -1,7 +1,3 @@
-/**
- * Provider: Bandcamp
- * Busca via scraping da página de busca do Bandcamp.
- */
 
 const SEARCH_URL = 'https://bandcamp.com/search'
 
@@ -12,7 +8,7 @@ async function search(title, artist) {
   try {
     const url = new URL(SEARCH_URL)
     url.searchParams.set('q', query)
-    url.searchParams.set('item_type', 't') // tracks only
+    url.searchParams.set('item_type', 't') 
 
     const res = await fetch(url, {
       headers: { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36' },
@@ -22,7 +18,6 @@ async function search(title, artist) {
 
     const html = await res.text()
 
-    // Extrair resultados de busca do HTML
     const results = []
     const matches = html.matchAll(/<div class="result-info">[\s\S]*?<a[^>]*href="([^"]+)"[^>]*>[\s\S]*?<div class="heading">\s*<a[^>]*>([^<]+)<\/a>[\s\S]*?<div class="subhead">[^<]*by\s*([^<]+)/g)
 

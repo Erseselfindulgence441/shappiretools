@@ -1,7 +1,7 @@
 import psl from "@imput/psl";
 import { strict as assert } from "node:assert";
 
-import { env } from "../config.js";
+import { env } from "../config/index.js";
 import { services } from "./service-config.js";
 import { getRedirectingURL } from "../misc/utils.js";
 import { friendlyServiceName } from "./service-alias.js";
@@ -16,15 +16,14 @@ function aliasURL(url) {
         case "youtube":
             if (url.pathname.startsWith('/live/') || url.pathname.startsWith('/shorts/')) {
                 url.pathname = '/watch';
-                // parts := ['', 'live' || 'shorts', id, ...rest]
+                
                 url.search = `?v=${encodeURIComponent(parts[2])}`;
             }
             break;
 
         case "youtu":
             if (url.hostname === 'youtu.be' && parts.length >= 2) {
-                /* youtu.be urls can be weird, e.g. https://youtu.be/<id>//asdasd// still works
-                ** but we only care about the 1st segment of the path */
+                
                 url = new URL(`https://youtube.com/watch?v=${
                     encodeURIComponent(parts[1])
                 }`)
@@ -105,8 +104,7 @@ function aliasURL(url) {
             break;
 
         case "redd":
-            /* reddit short video links can be treated by changing https://v.redd.it/<id>
-            to https://reddit.com/video/<id>.*/
+            
             if (url.hostname === "v.redd.it" && parts.length === 2) {
                 url = new URL(`https://www.reddit.com/video/${parts[1]}`);
             }
@@ -201,8 +199,7 @@ export function extract(url, enabledServices = env.enabledServices) {
     }
 
     if (!enabledServices.has(host)) {
-        // show a different message when youtube is disabled on official instances
-        // as it only happens when shit hits the fan
+        
         if (new URL(env.apiURL).hostname.endsWith(".imput.net") && host === "youtube") {
             return { error: "youtube.disabled_main_instance" };
         }

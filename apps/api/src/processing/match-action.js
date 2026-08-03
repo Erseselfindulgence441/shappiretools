@@ -244,14 +244,11 @@ export default function({
         defaultParams.filename += `.${audioFormat}`;
     }
 
-    // alwaysProxy is set to true in match.js if localProcessing is forced
     if (alwaysProxy && responseType === "redirect") {
         responseType = "tunnel";
         params.type = "proxy";
     }
 
-    // TODO: add support for HLS
-    // (very painful)
     if (!params.isHLS && responseType !== "picker") {
         const isPreferredWithExtra =
             localProcessing === "preferred" && extraProcessingTypes.has(params.type);
@@ -261,16 +258,12 @@ export default function({
         }
     }
 
-    // extractors usually return ISO 639-1 language codes,
-    // but video players expect ISO 639-2, so we convert them here
     const sublanguage = defaultParams.fileMetadata?.sublanguage;
     if (sublanguage && sublanguage.length !== 3) {
         const code = convertLanguageCode(sublanguage);
         if (code) {
             defaultParams.fileMetadata.sublanguage = code;
         } else {
-            // if a language code couldn't be converted,
-            // then we don't want it at all
             delete defaultParams.fileMetadata.sublanguage;
         }
     }

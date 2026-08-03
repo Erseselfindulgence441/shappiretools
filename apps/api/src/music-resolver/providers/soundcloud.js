@@ -1,7 +1,3 @@
-/**
- * Provider: SoundCloud
- * Busca músicas via API pública do SoundCloud.
- */
 
 const SEARCH_URL = 'https://api-v2.soundcloud.com/search/tracks'
 let cachedClientId = ''
@@ -52,7 +48,6 @@ async function search(title, artist) {
   const normalizedTitle = normalize(title)
   const normalizedArtist = normalize(artist)
 
-  // Match por confiança
   for (const track of tracks) {
     if (track.policy === 'BLOCK' || track.policy === 'SNIP' || !track.streamable) continue
 
@@ -70,7 +65,6 @@ async function search(title, artist) {
     }
   }
 
-  // Fallback: primeiro resultado streamable
   const first = tracks.find(t => t.streamable && t.policy !== 'BLOCK' && t.policy !== 'SNIP')
   if (first) {
     return { url: first.permalink_url, confidence: 0.4 }

@@ -1,4 +1,3 @@
-/** Maps Cobalt/Shappire API error codes to i18n keys. */
 const API_ERROR_MAP: Record<string, string> = {
   'error.api.link.unsupported': 'error.unsupported',
   'error.api.link.invalid': 'error.invalid',

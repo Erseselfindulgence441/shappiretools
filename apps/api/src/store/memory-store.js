@@ -1,13 +1,11 @@
 import { MinPriorityQueue } from '@datastructures-js/priority-queue';
 import { Store } from './base-store.js';
 
-// minimum delay between sweeps to avoid repeatedly
-// sweeping entries close in proximity one by one.
 const MIN_THRESHOLD_MS = 2500;
 
 export default class MemoryStore extends Store {
     #store = new Map();
-    #timeouts = new MinPriorityQueue/*<{ t: number, k: unknown }>*/((obj) => obj.t);
+    #timeouts = new MinPriorityQueue((obj) => obj.t);
     #nextSweep = { id: null, t: null };
 
     constructor(name) {

@@ -65,7 +65,7 @@ export function Hero() {
 
   async function processDownload(mode: DownloadMode, format?: string, bitrate?: string) {
     const settings = getDownloadSettings()
-    // Se tem uma URL resolvida (ex: SoundCloud via Spotify), usar ela
+    
     const targetUrl = (music?.resolvedUrl || url).trim()
     const data = await requestDownload({
       url: targetUrl,
@@ -78,7 +78,7 @@ export function Hero() {
       convertGif: settings.convertGif,
       disableMetadata: settings.disableMetadata,
       tiktokFullAudio: settings.tiktokFullAudio,
-      // Enviar metadata original quando é música (Spotify/YTMusic)
+      
       ...(music && music.title ? {
         overrideMetadata: {
           title: music.title,
@@ -128,9 +128,7 @@ export function Hero() {
 
   function startDownload() {
     if (!result?.url) return
-    // status "redirect" → direct link
-    // status "tunnel"   → /tunnel on our backend
-    // status "picker"   → handled separately below
+    
     triggerBrowserDownload(result.url, result.filename)
   }
 
