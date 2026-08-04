@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { ArrowRight, Bot, Code2, Download, FileText, Image, Lock, ShieldCheck, Sparkles, Wrench, Zap } from 'lucide-react'
-import { motion, type Variants } from 'framer-motion'
+import { AnimatePresence, motion, type Variants } from 'framer-motion'
 import { useI18n } from '../../i18n'
+import persona from '../../assets/images/persona.png'
 import { Features } from './Features'
 import { Services } from './Services'
 
@@ -29,6 +31,23 @@ const staggerContainer: Variants = {
 
 export function Home() {
   const { t } = useI18n()
+  const [showBubble, setShowBubble] = useState(false)
+
+  const handleMouseEnter = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+      setShowBubble(true)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+      setShowBubble(false)
+    }
+  }
+
+  const handleClick = () => {
+    setShowBubble((prev) => !prev)
+  }
 
   const categories = [
     {
@@ -37,7 +56,7 @@ export function Home() {
       icon: Download,
       badge: 'POPULAR',
       title: t('home.media.title') || 'Download de Mídia',
-      description: 'Baixe vídeos, áudios e clipes de mais de 20 plataformas suportadas.',
+      description: t('home.media.description') || 'Baixe vídeos, áudios e clipes de mais de 20 plataformas suportadas.',
       tags: ['TikTok', 'Instagram', 'Twitter/X', 'SoundCloud', 'Spotify'],
     },
     {
@@ -45,8 +64,8 @@ export function Home() {
       href: '/tools/image-converter',
       icon: Image,
       badge: 'SHARP & FFMPEG',
-      title: 'Conversor de Imagens & Mídia',
-      description: 'Converta formatos (PNG, WebP, AVIF, MP4, MP3), recorte e ajuste a qualidade.',
+      title: t('home.tools.converter.title') || 'Conversor de Imagens & Mídia',
+      description: t('home.tools.converter.description') || 'Converta formatos (PNG, WebP, AVIF, MP4, MP3), recorte e ajuste a qualidade.',
       tags: ['PNG', 'WebP', 'AVIF', 'MP4', 'GIF'],
     },
     {
@@ -54,8 +73,8 @@ export function Home() {
       href: '/tools/json',
       icon: Code2,
       badge: 'DEV SUITE',
-      title: 'Ferramentas de Dev',
-      description: 'Formatador JSON, decodificador JWT, testador Regex, gerador de hashes e UUIDs.',
+      title: t('home.tools.dev.title') || 'Ferramentas de Dev',
+      description: t('home.tools.dev.description') || 'Formatador JSON, decodificador JWT, testador Regex, gerador de hashes e UUIDs.',
       tags: ['JSON', 'JWT', 'Regex', 'Base64', 'Hash'],
     },
     {
@@ -63,8 +82,8 @@ export function Home() {
       href: '/tools/pdf-tools',
       icon: FileText,
       badge: 'PDF STUDIO',
-      title: 'PDF & Documentos',
-      description: 'Junte múltiplos PDFs, divida páginas e extraia partes do documento.',
+      title: t('home.tools.pdf.title') || 'PDF & Documentos',
+      description: t('home.tools.pdf.description') || 'Junte múltiplos PDFs, divida páginas e extraia partes do documento.',
       tags: ['Merge PDF', 'Split PDF', 'Extract'],
     },
     {
@@ -72,8 +91,8 @@ export function Home() {
       href: '/tools/discord-embed',
       icon: Bot,
       badge: 'DISCORD BUILDER',
-      title: 'Discord Suite',
-      description: 'Crie Rich Embeds interativos, gerador de marcações de tempo e formatação.',
+      title: t('home.tools.discord.title') || 'Discord Suite',
+      description: t('home.tools.discord.description') || 'Crie Rich Embeds interativos, gerador de marcações de tempo e formatação.',
       tags: ['Embed Builder', 'Timestamps'],
     },
     {
@@ -82,7 +101,7 @@ export function Home() {
       icon: Wrench,
       badge: 'UTILITÁRIOS',
       title: t('home.utility.title') || 'Utilitários & Design',
-      description: 'Encurtador de links, gerador de QR Codes, paletas de cores e senhas seguras.',
+      description: t('home.utility.description') || 'Encurtador de links, gerador de QR Codes, paletas de cores e senhas seguras.',
       tags: ['Shortener', 'QR Code', 'Paletas', 'Senhas'],
     },
   ]
@@ -93,9 +112,21 @@ export function Home() {
   ]
 
   const pillars = [
-    { icon: Lock, title: 'Zero Cadastro', desc: '100% livre e privado. Sem logins nem rastreadores.' },
-    { icon: Zap, title: 'Ultra-Rápido', desc: 'Processamento local e servidor com Sharp e FFmpeg.' },
-    { icon: ShieldCheck, title: 'Qualidade Máxima', desc: 'Mídias e arquivos mantêm a qualidade original.' },
+    {
+      icon: Lock,
+      title: t('home.pillars.zero.title') || 'Zero Cadastro',
+      desc: t('home.pillars.zero.desc') || '100% livre e privado. Sem logins nem rastreadores.',
+    },
+    {
+      icon: Zap,
+      title: t('home.pillars.fast.title') || 'Ultra-Rápido',
+      desc: t('home.pillars.fast.desc') || 'Processamento local e servidor com Sharp e FFmpeg.',
+    },
+    {
+      icon: ShieldCheck,
+      title: t('home.pillars.quality.title') || 'Qualidade Máxima',
+      desc: t('home.pillars.quality.desc') || 'Mídias e arquivos mantêm a qualidade original.',
+    },
   ]
 
   return (
@@ -108,37 +139,60 @@ export function Home() {
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.div className="home-presentation-eyebrow" variants={fadeUp} custom={0}>
-            <span className="pulse-dot" />
-            <span>SHAPPIRE TOOLS</span>
-          </motion.div>
+          {/* Persona Leaning on Line with Interactive Speech Bubble */}
+          <div
+            className="home-persona-spotlight"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
+          >
+            <AnimatePresence>
+              {showBubble && (
+                <motion.div
+                  className="persona-speech-bubble"
+                  initial={{ opacity: 0, x: -10, scale: 0.94 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -8, scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 350, damping: 24 }}
+                >
+                  <p>
+                    {t('home.persona.bubble') || 'Essa é a Shappire D. Ela usa um óculos muito fofo, e é a razão pela existência desse projeto — agradeça a ela.'}
+                  </p>
+                  <div className="bubble-arrow" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <img className="home-persona-img" src={persona} alt="Shappire Mascot" />
+            <div className="home-persona-line" />
+          </div>
 
           <motion.h1 className="home-presentation-title" variants={fadeUp} custom={1}>
-            Ferramentas simples para a internet de todos os dias.
+            SHAPPIRE TOOLS
           </motion.h1>
 
           <motion.p className="home-presentation-lead" variants={fadeUp} custom={2}>
-            Downloads de mídia, conversores de arquivos, utilitários para devs, documentos e suite para Discord em um só lugar.
+            {t('home.lead') || 'Downloads de mídia, conversores de arquivos, utilitários para devs, documentos e suite para Discord em um só lugar.'}
           </motion.p>
 
           <motion.div className="home-presentation-actions" variants={fadeUp} custom={3}>
             <a className="home-btn-primary" href="/downloader">
               <Download size={16} />
-              <span>Downloader de Mídia</span>
+              <span>{t('home.downloader') || 'Downloader de Mídia'}</span>
               <ArrowRight size={15} />
             </a>
             <a className="home-btn-secondary" href="/tools">
               <Wrench size={15} />
-              <span>Explorar Ferramentas</span>
+              <span>{t('home.tools') || 'Explorar Ferramentas'}</span>
             </a>
           </motion.div>
 
           <motion.div className="home-presentation-stats-pills" variants={fadeUp} custom={4}>
-            <span className="stat-pill-clean">+20 Plataformas</span>
+            <span className="stat-pill-clean">{t('home.stats.platforms') || '+20 Plataformas'}</span>
             <span className="stat-pill-dot">•</span>
-            <span className="stat-pill-clean">Processamento Local & Servidor</span>
+            <span className="stat-pill-clean">{t('home.stats.local') || 'Processamento Local & Servidor'}</span>
             <span className="stat-pill-dot">•</span>
-            <span className="stat-pill-clean">100% Grátis</span>
+            <span className="stat-pill-clean">{t('home.stats.free') || '100% Grátis'}</span>
           </motion.div>
         </motion.div>
       </section>
@@ -168,10 +222,10 @@ export function Home() {
         <div className="home-section-header">
           <div className="header-badge">
             <Sparkles size={12} />
-            <span>FERRAMENTAS</span>
+            <span>{t('home.tools.badge') || 'FERRAMENTAS'}</span>
           </div>
-          <h2>Tudo o que você precisa em um só lugar.</h2>
-          <p>Explore o catálogo completo de utilitários de mídia, conversores e dev tools.</p>
+          <h2>{t('home.tools.sectionTitle') || 'Tudo o que você precisa em um só lugar.'}</h2>
+          <p>{t('home.tools.sectionLead') || 'Explore o catálogo completo de utilitários de mídia, conversores e dev tools.'}</p>
         </div>
 
         <div className="home-tools-grid">
@@ -210,7 +264,7 @@ export function Home() {
       {/* ─── Platforms Cloud ─── */}
       <section className="container home-platforms-section">
         <div className="platforms-container">
-          <span className="platforms-title">SUPORTE A PLATAFORMAS DE MÍDIA</span>
+          <span className="platforms-title">{t('home.platforms.title') || 'SUPORTE A PLATAFORMAS DE MÍDIA'}</span>
           <div className="platforms-cloud">
             {platforms.map((platform) => (
               <span key={platform} className="platform-pill">

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, Settings, X } from 'lucide-react'
 import { useI18n } from '../../i18n'
 import { getCurrentRoute } from '../../lib/routing'
 import { GitHubIcon } from '../icons/BrandIcons'
@@ -13,6 +13,7 @@ export function Header() {
   const navItems = [
     { key: 'downloader', href: '/downloader', label: t('nav.downloader') || 'Downloader' },
     { key: 'tools', href: '/tools', label: t('nav.tools') || 'Ferramentas' },
+    { key: 'settings', href: '/settings', label: t('nav.settings') || 'Configurações' },
     { key: 'faq', href: '/servicos', label: 'FAQ' },
     { key: 'about', href: '/about', label: t('nav.about') || 'Sobre' },
   ]
@@ -37,11 +38,20 @@ export function Header() {
 
           <div className="header-actions">
             <a
+              href="/settings"
+              className={`header-icon-btn ${route === 'settings' ? 'is-active' : ''}`}
+              aria-label="Configurações"
+              title="Configurações"
+            >
+              <Settings size={17} />
+            </a>
+            <a
               href="https://github.com/vassilievz/shappiretools"
               target="_blank"
               rel="noopener noreferrer"
               className="header-icon-btn"
               aria-label="GitHub"
+              title="GitHub"
             >
               <GitHubIcon size={17} />
             </a>
