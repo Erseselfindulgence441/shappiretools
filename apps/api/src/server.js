@@ -18,7 +18,6 @@ import { convertImage, uploadImage } from './tools/image-converter.js';
 import { convertMedia, uploadMedia } from './tools/media-converter.js';
 import { redirectShortLink, shortenLink } from './tools/link-shortener.js';
 import { inspectMusic } from './media/music-info.js';
-import { trackAction, getStats } from './telemetry/stats.js';
 import { googleLensLimiter, searchWithGoogleLens, uploadGoogleLensImage } from './tools/google-lens/route.js';
 
 const app = express();
@@ -97,40 +96,12 @@ const tunnelLimiter = rateLimit({
 app.set("trust proxy", ["loopback", "uniquelocal"]);
 app.use(express.json({ limit: 1024 }));
 
-app.post('/tools/image-converter', apiLimiter, uploadImage, async (req, res) => {
-    const originalSend = res.send.bind(res);
-    res.send = function(data) {
-        if (res.statusCode === 200) {
-            const from = req.file?.mimetype?.split('/')[1] || 'unknown';
-            const to = req.body.format || 'unknown';
-            trackAction('conversion', 'image', `${from}→${to}`);
-        }
-        return originalSend(data);
-    };
-    return convertImage(req, res);
-});
-
-app.post('/tools/media-converter', apiLimiter, uploadMedia, async (req, res) => {
-    const originalSend = res.send.bind(res);
-    res.send = function(data) {
-        if (res.statusCode === 200) {
-            const mode = req.body.mode || 'convert';
-            const format = req.body.format || 'unknown';
-            trackAction('conversion', 'media', `${mode}→${format}`);
-        }
-        return originalSend(data);
-    };
-    return convertMedia(req, res);
-});
-
+app.post('/tools/image-converter', apiLimiter, uploadImage, convertImage);
+app.post('/tools/media-converter', apiLimiter, uploadMedia, convertMedia);
 app.post('/tools/link-shortener', apiLimiter, shortenLink);
 app.post('/tools/google-lens', googleLensLimiter, uploadGoogleLensImage, searchWithGoogleLens);
 app.post('/media/inspect', apiLimiter, inspectMusic);
 app.get('/s/:slug', redirectShortLink);
-
-app.get('/stats', (_req, res) => {
-    res.json(getStats());
-});
 
 app.get("/", (_req, res) => {
     res.json({
@@ -176,10 +147,6 @@ app.post("/", apiLimiter, async (req, res) => {
             params: normalizedRequest,
             authType: "none",
         });
-
-        if (result.status === 200) {
-            trackAction('download', parsed.host, normalizedRequest.downloadMode || 'auto');
-        }
 
         const overrideMeta = req.body?.overrideMetadata;
         if (result.status === 200 && overrideMeta && result.body?.filename) {

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Footer, Header } from './components/layout'
 import { BetaBanner } from './components/layout/BetaBanner'
 import { Hero, Home } from './components/home'
@@ -68,7 +69,15 @@ function MainContent() {
 export default function App() {
   const route = getCurrentRoute()
 
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+  }, [route])
+
   return (
+
     <div className={getPageShellClass(route)}>
       <BetaBanner />
       <Header />

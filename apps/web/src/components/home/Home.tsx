@@ -1,8 +1,31 @@
 import { ArrowRight, Bot, Code2, Download, FileText, Image, Lock, ShieldCheck, Sparkles, Wrench, Zap } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { useI18n } from '../../i18n'
 import { Features } from './Features'
 import { Services } from './Services'
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: i * 0.08,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+}
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+}
 
 export function Home() {
   const { t } = useI18n()
@@ -14,174 +37,155 @@ export function Home() {
       icon: Download,
       badge: 'POPULAR',
       title: t('home.media.title') || 'Download de Mídia',
-      description: 'Baixe vídeos, áudios e clipes em alta resolução de mais de 20 plataformas suportadas.',
+      description: 'Baixe vídeos, áudios e clipes de mais de 20 plataformas suportadas.',
       tags: ['TikTok', 'Instagram', 'Twitter/X', 'SoundCloud', 'Spotify'],
     },
     {
       id: 'converter',
-      href: '/image-converter',
+      href: '/tools/image-converter',
       icon: Image,
       badge: 'SHARP & FFMPEG',
       title: 'Conversor de Imagens & Mídia',
-      description: 'Converta formatos (PNG, WebP, AVIF, MP4, MP3), recorte, redimensione e ajuste a qualidade.',
+      description: 'Converta formatos (PNG, WebP, AVIF, MP4, MP3), recorte e ajuste a qualidade.',
       tags: ['PNG', 'WebP', 'AVIF', 'MP4', 'GIF'],
     },
     {
       id: 'dev',
-      href: '/json-tools',
+      href: '/tools/json',
       icon: Code2,
       badge: 'DEV SUITE',
       title: 'Ferramentas de Dev',
-      description: 'Formatador JSON, decodificador JWT, testador Regex, gerador de hashes e UUIDs v4.',
+      description: 'Formatador JSON, decodificador JWT, testador Regex, gerador de hashes e UUIDs.',
       tags: ['JSON', 'JWT', 'Regex', 'Base64', 'Hash'],
     },
     {
       id: 'pdf',
-      href: '/pdf-tools',
+      href: '/tools/pdf-tools',
       icon: FileText,
       badge: 'PDF STUDIO',
       title: 'PDF & Documentos',
-      description: 'Junte múltiplos PDFs (Merge), divida páginas (Split) e extraia partes do documento com rapidez.',
-      tags: ['Merge PDF', 'Split PDF', 'Page Extract'],
+      description: 'Junte múltiplos PDFs, divida páginas e extraia partes do documento.',
+      tags: ['Merge PDF', 'Split PDF', 'Extract'],
     },
     {
       id: 'discord',
-      href: '/discord-embed',
+      href: '/tools/discord-embed',
       icon: Bot,
       badge: 'DISCORD BUILDER',
       title: 'Discord Suite',
-      description: 'Crie Rich Embeds interativos, gere marcações de tempo dinâmicas (Timestamps) e textos estilizados.',
-      tags: ['Embed Builder', 'Timestamps', 'Formatters'],
+      description: 'Crie Rich Embeds interativos, gerador de marcações de tempo e formatação.',
+      tags: ['Embed Builder', 'Timestamps'],
     },
     {
       id: 'utilities',
-      href: '/link-shortener',
+      href: '/tools/link-shortener',
       icon: Wrench,
       badge: 'UTILITÁRIOS',
       title: t('home.utility.title') || 'Utilitários & Design',
-      description: 'Encurtador de links com estatísticas, gerador de QR Codes, paletas de cores e senhas seguras.',
+      description: 'Encurtador de links, gerador de QR Codes, paletas de cores e senhas seguras.',
       tags: ['Shortener', 'QR Code', 'Paletas', 'Senhas'],
     },
   ]
 
   const platforms = [
     'TikTok', 'Twitter / X', 'Instagram', 'Bluesky', 'SoundCloud',
-    'Spotify (Info)', 'YouTube Music (Info)', 'Vimeo', 'Twitch',
-    'Bilibili', 'Facebook', 'Snapchat', 'Rutube', 'Loom', 'Dailymotion', 'Newgrounds'
+    'Spotify', 'YouTube Music', 'Vimeo', 'Twitch', 'Facebook'
+  ]
+
+  const pillars = [
+    { icon: Lock, title: 'Zero Cadastro', desc: '100% livre e privado. Sem logins nem rastreadores.' },
+    { icon: Zap, title: 'Ultra-Rápido', desc: 'Processamento local e servidor com Sharp e FFmpeg.' },
+    { icon: ShieldCheck, title: 'Qualidade Máxima', desc: 'Mídias e arquivos mantêm a qualidade original.' },
   ]
 
   return (
     <div className="home-wrapper">
-      {/* Brand Hero Banner (Presentation only - No Downloader Input) */}
+      {/* ─── Hero Presentation ─── */}
       <section className="container home-hero-presentation">
         <motion.div
           className="home-presentation-content"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
         >
-          <div className="home-presentation-eyebrow">
+          <motion.div className="home-presentation-eyebrow" variants={fadeUp} custom={0}>
             <span className="pulse-dot" />
-            <span>SHAPPIRE TOOLS • PLATAFORMA OPEN SOURCE</span>
-          </div>
+            <span>SHAPPIRE TOOLS</span>
+          </motion.div>
 
-          <h1 className="home-presentation-title">
+          <motion.h1 className="home-presentation-title" variants={fadeUp} custom={1}>
             Ferramentas simples para a internet de todos os dias.
-          </h1>
+          </motion.h1>
 
-          <p className="home-presentation-lead">
-            Downloads de mídia, conversores de arquivos, utilitários para devs, documentos e suite para Discord em um único lugar — sem conta, sem anúncios e sem complicações.
-          </p>
+          <motion.p className="home-presentation-lead" variants={fadeUp} custom={2}>
+            Downloads de mídia, conversores de arquivos, utilitários para devs, documentos e suite para Discord em um só lugar.
+          </motion.p>
 
-          <div className="home-presentation-actions">
+          <motion.div className="home-presentation-actions" variants={fadeUp} custom={3}>
             <a className="home-btn-primary" href="/downloader">
-              <Download size={17} />
+              <Download size={16} />
               <span>Downloader de Mídia</span>
-              <ArrowRight size={16} />
+              <ArrowRight size={15} />
             </a>
             <a className="home-btn-secondary" href="/tools">
-              <Wrench size={16} />
+              <Wrench size={15} />
               <span>Explorar Ferramentas</span>
             </a>
-          </div>
+          </motion.div>
 
-          <div className="home-presentation-stats-pills">
-            <div className="stat-pill">
-              <span className="pill-dot" />
-              <span>+20 Plataformas</span>
-            </div>
-            <div className="stat-pill">
-              <span className="pill-dot" />
-              <span>Sharp & FFmpeg Native</span>
-            </div>
-            <div className="stat-pill">
-              <span className="pill-dot" />
-              <span>100% Grátis & Privado</span>
-            </div>
-          </div>
+          <motion.div className="home-presentation-stats-pills" variants={fadeUp} custom={4}>
+            <span className="stat-pill-clean">+20 Plataformas</span>
+            <span className="stat-pill-dot">•</span>
+            <span className="stat-pill-clean">Processamento Local & Servidor</span>
+            <span className="stat-pill-dot">•</span>
+            <span className="stat-pill-clean">100% Grátis</span>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* Pillars Section */}
+      {/* ─── Pillars Section ─── */}
       <section className="container home-pillars-section">
         <div className="home-pillars-grid">
-          <div className="pillar-card">
-            <div className="pillar-icon">
-              <Lock size={18} />
-            </div>
-            <div>
-              <h3>Zero Cadastro & Anúncios</h3>
-              <p>Ferramentas livres e privadas. Sem logins, sem rastreadores e sem distrações.</p>
-            </div>
-          </div>
-          <div className="pillar-card">
-            <div className="pillar-icon">
-              <Zap size={18} />
-            </div>
-            <div>
-              <h3>Processamento Ultra-Rápido</h3>
-              <p>Conversões locais e no servidor otimizadas com Sharp, FFmpeg e streaming.</p>
-            </div>
-          </div>
-          <div className="pillar-card">
-            <div className="pillar-icon">
-              <ShieldCheck size={18} />
-            </div>
-            <div>
-              <h3>Qualidade Preservada</h3>
-              <p>Mídias e arquivos mantêm a qualidade máxima original sem perda de bitrate.</p>
-            </div>
-          </div>
+          {pillars.map((p, i) => {
+            const Icon = p.icon
+            return (
+              <div key={i} className="pillar-card">
+                <div className="pillar-icon">
+                  <Icon size={17} />
+                </div>
+                <div>
+                  <h3>{p.title}</h3>
+                  <p>{p.desc}</p>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </section>
 
-      {/* Tools Directory Showcase Grid */}
+      {/* ─── Tools Grid Showcase ─── */}
       <section className="container home-tools-section" id="ferramentas">
         <div className="home-section-header">
           <div className="header-badge">
-            <Sparkles size={13} />
-            <span>ECOSSISTEMA COMPLETO</span>
+            <Sparkles size={12} />
+            <span>FERRAMENTAS</span>
           </div>
           <h2>Tudo o que você precisa em um só lugar.</h2>
-          <p>Explore o catálogo completo de utilitários de mídia, conversores, documentos e recursos para devs.</p>
+          <p>Explore o catálogo completo de utilitários de mídia, conversores e dev tools.</p>
         </div>
 
         <div className="home-tools-grid">
-          {categories.map((item, index) => {
+          {categories.map((item) => {
             const Icon = item.icon
             return (
-              <motion.a
+              <a
                 key={item.id}
                 href={item.href}
                 className="home-tool-card"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
               >
                 <div className="tool-card-top">
                   <div className="tool-card-icon">
-                    <Icon size={20} />
+                    <Icon size={18} />
                   </div>
                   <span className="tool-card-badge">{item.badge}</span>
                 </div>
@@ -197,16 +201,16 @@ export function Home() {
                     </span>
                   ))}
                 </div>
-              </motion.a>
+              </a>
             )
           })}
         </div>
       </section>
 
-      {/* Supported Platforms Cloud */}
+      {/* ─── Platforms Cloud ─── */}
       <section className="container home-platforms-section">
         <div className="platforms-container">
-          <span className="platforms-title">SUPORTE A +20 PLATAFORMAS & FONTES DE MÍDIA</span>
+          <span className="platforms-title">SUPORTE A PLATAFORMAS DE MÍDIA</span>
           <div className="platforms-cloud">
             {platforms.map((platform) => (
               <span key={platform} className="platform-pill">
@@ -217,10 +221,10 @@ export function Home() {
         </div>
       </section>
 
-      {/* Features Demonstrations */}
+      {/* ─── Features ─── */}
       <Features />
 
-      {/* Frequently Asked Questions */}
+      {/* ─── FAQ ─── */}
       <Services />
     </div>
   )
