@@ -7,4 +7,5 @@ export type {
   DownloadResult,
   DownloadStatus,
   MusicPreview,
+  VideoPreview,
 } from './types'

@@ -54,55 +54,55 @@ export function Home() {
       id: 'downloader',
       href: '/downloader',
       icon: Download,
-      badge: 'POPULAR',
-      title: t('home.media.title') || 'Download de Mídia',
-      description: t('home.media.description') || 'Baixe vídeos, áudios e clipes de mais de 20 plataformas suportadas.',
+      badge: t('home.badges.popular'),
+      title: t('home.media.title'),
+      description: t('home.media.description'),
       tags: ['TikTok', 'Instagram', 'Twitter/X', 'SoundCloud', 'Spotify'],
     },
     {
       id: 'converter',
       href: '/tools/image-converter',
       icon: Image,
-      badge: 'SHARP & FFMPEG',
-      title: t('home.tools.converter.title') || 'Conversor de Imagens & Mídia',
-      description: t('home.tools.converter.description') || 'Converta formatos (PNG, WebP, AVIF, MP4, MP3), recorte e ajuste a qualidade.',
+      badge: t('home.badges.converter'),
+      title: t('home.tools.converter.title'),
+      description: t('home.tools.converter.description'),
       tags: ['PNG', 'WebP', 'AVIF', 'MP4', 'GIF'],
     },
     {
       id: 'dev',
       href: '/tools/json',
       icon: Code2,
-      badge: 'DEV SUITE',
-      title: t('home.tools.dev.title') || 'Ferramentas de Dev',
-      description: t('home.tools.dev.description') || 'Formatador JSON, decodificador JWT, testador Regex, gerador de hashes e UUIDs.',
-      tags: ['JSON', 'JWT', 'Regex', 'Base64', 'Hash'],
+      badge: t('home.badges.dev'),
+      title: t('home.tools.dev.title'),
+      description: t('home.tools.dev.description'),
+      tags: ['JSON', 'JWT', 'Regex', 'Base64', t('home.tags.hash')],
     },
     {
       id: 'pdf',
       href: '/tools/pdf-tools',
       icon: FileText,
-      badge: 'PDF STUDIO',
-      title: t('home.tools.pdf.title') || 'PDF & Documentos',
-      description: t('home.tools.pdf.description') || 'Junte múltiplos PDFs, divida páginas e extraia partes do documento.',
-      tags: ['Merge PDF', 'Split PDF', 'Extract'],
+      badge: t('home.badges.pdf'),
+      title: t('home.tools.pdf.title'),
+      description: t('home.tools.pdf.description'),
+      tags: [t('home.tags.mergePdf'), t('home.tags.splitPdf'), t('home.tags.extract')],
     },
     {
       id: 'discord',
       href: '/tools/discord-embed',
       icon: Bot,
-      badge: 'DISCORD BUILDER',
-      title: t('home.tools.discord.title') || 'Discord Suite',
-      description: t('home.tools.discord.description') || 'Crie Rich Embeds interativos, gerador de marcações de tempo e formatação.',
-      tags: ['Embed Builder', 'Timestamps'],
+      badge: t('home.badges.discord'),
+      title: t('home.tools.discord.title'),
+      description: t('home.tools.discord.description'),
+      tags: [t('home.tags.embedBuilder'), t('home.tags.timestamps')],
     },
     {
       id: 'utilities',
       href: '/tools/link-shortener',
       icon: Wrench,
-      badge: 'UTILITÁRIOS',
-      title: t('home.utility.title') || 'Utilitários & Design',
-      description: t('home.utility.description') || 'Encurtador de links, gerador de QR Codes, paletas de cores e senhas seguras.',
-      tags: ['Shortener', 'QR Code', 'Paletas', 'Senhas'],
+      badge: t('home.badges.utilities'),
+      title: t('home.utility.title'),
+      description: t('home.utility.description'),
+      tags: [t('home.tags.shortener'), 'QR Code', t('home.tags.palettes'), t('home.tags.passwords')],
     },
   ]
 
@@ -114,18 +114,18 @@ export function Home() {
   const pillars = [
     {
       icon: Lock,
-      title: t('home.pillars.zero.title') || 'Zero Cadastro',
-      desc: t('home.pillars.zero.desc') || '100% livre e privado. Sem logins nem rastreadores.',
+      title: t('home.pillars.zero.title'),
+      desc: t('home.pillars.zero.desc'),
     },
     {
       icon: Zap,
-      title: t('home.pillars.fast.title') || 'Ultra-Rápido',
-      desc: t('home.pillars.fast.desc') || 'Processamento local e servidor com Sharp e FFmpeg.',
+      title: t('home.pillars.fast.title'),
+      desc: t('home.pillars.fast.desc'),
     },
     {
       icon: ShieldCheck,
-      title: t('home.pillars.quality.title') || 'Qualidade Máxima',
-      desc: t('home.pillars.quality.desc') || 'Mídias e arquivos mantêm a qualidade original.',
+      title: t('home.pillars.quality.title'),
+      desc: t('home.pillars.quality.desc'),
     },
   ]
 
@@ -156,14 +156,14 @@ export function Home() {
                   transition={{ type: 'spring', stiffness: 350, damping: 24 }}
                 >
                   <p>
-                    {t('home.persona.bubble') || 'Essa é a Shappire D. Ela usa um óculos muito fofo, e é a razão pela existência desse projeto — agradeça a ela.'}
+                    {t('home.persona.bubble')}
                   </p>
                   <div className="bubble-arrow" />
                 </motion.div>
               )}
             </AnimatePresence>
 
-            <img className="home-persona-img" src={persona} alt="Shappire Mascot" />
+            <img className="home-persona-img" src={persona} alt={t('home.persona.alt')} />
             <div className="home-persona-line" />
           </div>
 
@@ -172,27 +172,27 @@ export function Home() {
           </motion.h1>
 
           <motion.p className="home-presentation-lead" variants={fadeUp} custom={2}>
-            {t('home.lead') || 'Downloads de mídia, conversores de arquivos, utilitários para devs, documentos e suite para Discord em um só lugar.'}
+            {t('home.lead')}
           </motion.p>
 
           <motion.div className="home-presentation-actions" variants={fadeUp} custom={3}>
             <a className="home-btn-primary" href="/downloader">
               <Download size={16} />
-              <span>{t('home.downloader') || 'Downloader de Mídia'}</span>
+              <span>{t('home.downloader')}</span>
               <ArrowRight size={15} />
             </a>
             <a className="home-btn-secondary" href="/tools">
               <Wrench size={15} />
-              <span>{t('home.tools') || 'Explorar Ferramentas'}</span>
+              <span>{t('home.tools')}</span>
             </a>
           </motion.div>
 
           <motion.div className="home-presentation-stats-pills" variants={fadeUp} custom={4}>
-            <span className="stat-pill-clean">{t('home.stats.platforms') || '+20 Plataformas'}</span>
+            <span className="stat-pill-clean">{t('home.stats.platforms')}</span>
             <span className="stat-pill-dot">•</span>
-            <span className="stat-pill-clean">{t('home.stats.local') || 'Processamento Local & Servidor'}</span>
+            <span className="stat-pill-clean">{t('home.stats.local')}</span>
             <span className="stat-pill-dot">•</span>
-            <span className="stat-pill-clean">{t('home.stats.free') || '100% Grátis'}</span>
+            <span className="stat-pill-clean">{t('home.stats.free')}</span>
           </motion.div>
         </motion.div>
       </section>
@@ -222,10 +222,10 @@ export function Home() {
         <div className="home-section-header">
           <div className="header-badge">
             <Sparkles size={12} />
-            <span>{t('home.tools.badge') || 'FERRAMENTAS'}</span>
+            <span>{t('home.tools.badge')}</span>
           </div>
-          <h2>{t('home.tools.sectionTitle') || 'Tudo o que você precisa em um só lugar.'}</h2>
-          <p>{t('home.tools.sectionLead') || 'Explore o catálogo completo de utilitários de mídia, conversores e dev tools.'}</p>
+          <h2>{t('home.tools.sectionTitle')}</h2>
+          <p>{t('home.tools.sectionLead')}</p>
         </div>
 
         <div className="home-tools-grid">
@@ -264,7 +264,7 @@ export function Home() {
       {/* ─── Platforms Cloud ─── */}
       <section className="container home-platforms-section">
         <div className="platforms-container">
-          <span className="platforms-title">{t('home.platforms.title') || 'SUPORTE A PLATAFORMAS DE MÍDIA'}</span>
+          <span className="platforms-title">{t('home.platforms.title')}</span>
           <div className="platforms-cloud">
             {platforms.map((platform) => (
               <span key={platform} className="platform-pill">

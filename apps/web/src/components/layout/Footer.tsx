@@ -85,6 +85,8 @@ export function Footer() {
           <div className="footer-links-col">
             <h4 className="footer-col-title">Suporte</h4>
             <a href="/servicos"><ExternalLink size={13} /> FAQ</a>
+            <a href="/donate"><Heart size={13} /> Doar</a>
+            <a href="/thanks"><Heart size={13} /> Agradecimentos</a>
             <a href="/about"><ExternalLink size={13} /> Sobre</a>
             <a href="/terms"><Shield size={13} /> Termos</a>
             <a href="/ethics"><Shield size={13} /> Ética</a>

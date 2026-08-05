@@ -13,6 +13,7 @@ const env = {
     apiURL: process.env.API_URL || "http://localhost:3001",
     apiPort: parseInt(process.env.PORT || "3001", 10),
     tunnelPort: parseInt(process.env.PORT || "3001", 10),
+    goatPayKey: process.env.GOAT_PAY || null,
 
     corsWildcard: true,
     corsURL: process.env.FRONTEND_URL || "http://localhost:5173",

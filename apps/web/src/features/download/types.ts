@@ -51,4 +51,12 @@ export interface MusicPreview {
   notice?: string
 }
 
-export type MediaInspection = MusicPreview | { kind: 'video' }
+export interface VideoPreview {
+  kind: 'video'
+  provider: string
+  title: string
+  author?: string
+  thumbnail?: string | null
+}
+
+export type MediaInspection = MusicPreview | VideoPreview

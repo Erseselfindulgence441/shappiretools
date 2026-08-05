@@ -55,6 +55,15 @@ export function About() {
           <p>{t('about.community.two')}</p>
         </div>
       </section>
+
+      <section className="about-inspiration about-community about-thanks-link">
+        <span>06</span>
+        <div>
+          <h2>Apoios que fazem diferença.</h2>
+          <p>O Shappire continua aberto graças a quem escolhe apoiar o projeto.</p>
+          <a href="/thanks">Ver página de agradecimentos</a>
+        </div>
+      </section>
     </section>
   )
 }

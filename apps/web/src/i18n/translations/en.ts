@@ -169,4 +169,41 @@ Object.assign(en, {
   'home.platforms.title': 'SUPPORTED MEDIA PLATFORMS',
 })
 
+Object.assign(en, {
+  'home.persona.alt': 'Shappire mascot',
+  'home.badges.popular': 'POPULAR', 'home.badges.converter': 'SHARP & FFMPEG', 'home.badges.dev': 'DEV SUITE', 'home.badges.pdf': 'PDF STUDIO', 'home.badges.discord': 'DISCORD BUILDER', 'home.badges.utilities': 'UTILITIES',
+  'home.tags.hash': 'Hash', 'home.tags.mergePdf': 'Merge PDF', 'home.tags.splitPdf': 'Split PDF', 'home.tags.extract': 'Extract', 'home.tags.embedBuilder': 'Embed Builder', 'home.tags.timestamps': 'Timestamps', 'home.tags.shortener': 'Shortener', 'home.tags.palettes': 'Palettes', 'home.tags.passwords': 'Passwords',
+  'home.features.kicker': 'Made to flow', 'home.features.title': 'Everything that matters, in one place.', 'home.features.format.eyebrow': 'Smart conversion', 'home.features.format.title': 'Choose your format', 'home.features.format.description': 'From high-definition video to lightweight audio you can take anywhere.', 'home.features.original': 'ORIGINAL', 'home.features.format.previewLabel': 'Your file, prepared', 'home.features.format.previewTitle': 'Ready to choose', 'home.features.detected': 'Link detected', 'home.features.mediaFile': 'original-media', 'home.features.video': 'video', 'home.features.audio': 'audio', 'home.features.image': 'image', 'home.features.loop': 'loop', 'home.features.quality.title': 'Quality preserved', 'home.features.quality.description': 'Sharp, clear files exactly as they should be.', 'home.features.clean.title': 'Naturally clean', 'home.features.clean.description': 'No confusing screens. Just what you need, when you need it.',
+  'downloader.kicker': 'MEDIA DOWNLOADER', 'downloader.title.first': 'From link', 'downloader.title.second': 'to file.', 'downloader.lead': 'Paste a link to prepare videos, audio, images, and music in a few steps.', 'downloader.compatible': 'Video, audio, image, and music', 'downloader.workspaceLabel': 'NEW REQUEST', 'downloader.workspaceTitle': 'Paste a link to get started', 'downloader.temporary': 'Processing is temporary. Your file is ready to download as soon as it finishes.',
+})
+
+Object.assign(en, {
+  'downloader.analysis.label': 'ANALYZING LINK',
+  'downloader.analysis.title': 'Preparing your media.',
+  'downloader.analysis.identifying': 'Identifying the source and content type…',
+  'downloader.analysis.preparing': 'Preparing your file for download…',
+  'downloader.analysis.ready': 'Preview found.',
+  'downloader.preview.ready': 'Ready to download',
+  'downloader.preview.download': 'Prepare download',
+  'downloader.preview.change': 'Use another link',
+})
+
+Object.assign(en, {
+  'thanks.kicker': 'ACKNOWLEDGEMENTS', 'thanks.title.first': 'Made with', 'thanks.title.second': 'community support.', 'thanks.lead': 'Those who support the most appear first. Each person has one place with the sum of all their donations.', 'thanks.loading': 'Loading supporters', 'thanks.total': 'Total supported', 'thanks.empty': 'The first acknowledgements will appear here.', 'thanks.cta': 'Support Shappire',
+  'nav.donate': 'Donate',
+  'donate.kicker': 'SUPPORT SHAPPIRE', 'donate.title.first': 'DONATE', 'donate.title.second': 'SHAPPIRE',
+  'donate.lead': 'Donations keep Shappire infrastructure, processing, and development moving. This page accepts PIX payments for users in Brazil.',
+  'donate.impact.infrastructure.title': 'Infrastructure', 'donate.impact.infrastructure.description': 'Servers, temporary storage, and processing that keep the tools available.',
+  'donate.impact.development.title': 'Development', 'donate.impact.development.description': 'New tools, performance improvements, and fixes delivered more often.',
+  'donate.impact.open.title': 'Open access', 'donate.impact.open.description': 'A project that stays free from mandatory accounts, artificial blocks, and paid plans.',
+  'donate.ranking': 'View supporter ranking', 'donate.checkout.label': 'YOUR DONATION', 'donate.checkout.title': 'Choose an amount', 'donate.checkout.other': 'Other amount',
+  'donate.checkout.public': 'I want to appear in acknowledgements', 'donate.checkout.nickname': 'Nickname', 'donate.checkout.nicknamePlaceholder': 'How should we call you?', 'donate.checkout.photo': 'Photo URL', 'donate.checkout.optional': 'optional', 'donate.checkout.privacy': 'Your name and photo are only shown publicly if you choose this option.',
+  'donate.checkout.creating': 'Creating PIX...', 'donate.checkout.submit': 'Donate', 'donate.errors.create': 'Could not create the PIX payment.', 'donate.errors.copy': 'Could not copy the PIX code.',
+  'donate.success.kicker': 'DONATION CONFIRMED', 'donate.success.title': 'Thank you for strengthening Shappire.', 'donate.success.public': 'Your support is already part of the acknowledgements page.', 'donate.success.private': 'Your support helps keep Shappire running.', 'donate.success.link': 'View acknowledgements',
+  'donate.pix.kicker': 'PIX CREATED', 'donate.pix.change': 'Change amount', 'donate.pix.instructions': 'Scan the QR Code in your banking app', 'donate.pix.lead': 'This page updates automatically as soon as the payment is confirmed.', 'donate.pix.copied': 'Code copied', 'donate.pix.copy': 'Copy PIX code', 'donate.pix.waiting': 'Waiting for PIX confirmation',
+  'donate.details.voluntary.title': 'VOLUNTARY DONATION', 'donate.details.voluntary.description': 'Shappire works for everyone. Support is optional, and every amount makes a difference.',
+  'donate.details.pix.title': 'PIX FOR BRAZIL', 'donate.details.pix.description': 'The payment is created by a payment institution and confirmed on this page.',
+  'donate.details.ranking.title': 'RECOGNITION', 'donate.details.ranking.description': 'If you choose to appear, your nickname accumulates support and moves up the community ranking.',
+})
+
 export default en

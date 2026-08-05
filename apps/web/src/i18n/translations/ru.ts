@@ -168,4 +168,41 @@ Object.assign(ru, {
   'home.platforms.title': 'ПОДДЕРЖИВАЕМЫЕ МЕДИА ПЛАТФОРМЫ',
 })
 
+Object.assign(ru, {
+  'home.persona.alt': 'Талисман Shappire',
+  'home.badges.popular': 'ПОПУЛЯРНОЕ', 'home.badges.converter': 'SHARP И FFMPEG', 'home.badges.dev': 'ИНСТРУМЕНТЫ DEV', 'home.badges.pdf': 'PDF СТУДИЯ', 'home.badges.discord': 'КОНСТРУКТОР DISCORD', 'home.badges.utilities': 'УТИЛИТЫ',
+  'home.tags.hash': 'Хэш', 'home.tags.mergePdf': 'Объединить PDF', 'home.tags.splitPdf': 'Разделить PDF', 'home.tags.extract': 'Извлечь', 'home.tags.embedBuilder': 'Конструктор Embed', 'home.tags.timestamps': 'Метки времени', 'home.tags.shortener': 'Сокращатель', 'home.tags.palettes': 'Палитры', 'home.tags.passwords': 'Пароли',
+  'home.features.kicker': 'Создано для простоты', 'home.features.title': 'Всё важное — в одном месте.', 'home.features.format.eyebrow': 'Умная конвертация', 'home.features.format.title': 'Выберите формат', 'home.features.format.description': 'От видео высокой четкости до легкого аудио, которое всегда с вами.', 'home.features.original': 'ОРИГИНАЛ', 'home.features.format.previewLabel': 'Ваш файл подготовлен', 'home.features.format.previewTitle': 'Готово к выбору', 'home.features.detected': 'Ссылка найдена', 'home.features.mediaFile': 'исходное-медиа', 'home.features.video': 'видео', 'home.features.audio': 'аудио', 'home.features.image': 'изображение', 'home.features.loop': 'цикл', 'home.features.quality.title': 'Качество сохранено', 'home.features.quality.description': 'Чёткие и ясные файлы — именно такими, какими они должны быть.', 'home.features.clean.title': 'Чисто по своей природе', 'home.features.clean.description': 'Без запутанных экранов. Только то, что нужно, когда это нужно.',
+  'downloader.kicker': 'ЗАГРУЗЧИК МЕДИА', 'downloader.title.first': 'От ссылки', 'downloader.title.second': 'к файлу.', 'downloader.lead': 'Вставьте ссылку, чтобы подготовить видео, аудио, изображения и музыку за несколько шагов.', 'downloader.compatible': 'Видео, аудио, изображения и музыка', 'downloader.workspaceLabel': 'НОВЫЙ ЗАПРОС', 'downloader.workspaceTitle': 'Вставьте ссылку, чтобы начать', 'downloader.temporary': 'Обработка временная. Файл будет готов к загрузке сразу после завершения.',
+})
+
+Object.assign(ru, {
+  'downloader.analysis.label': 'АНАЛИЗ ССЫЛКИ',
+  'downloader.analysis.title': 'Подготавливаем медиа.',
+  'downloader.analysis.identifying': 'Определяем источник и тип контента…',
+  'downloader.analysis.preparing': 'Подготавливаем файл к загрузке…',
+  'downloader.analysis.ready': 'Предпросмотр найден.',
+  'downloader.preview.ready': 'Готово к загрузке',
+  'downloader.preview.download': 'Подготовить загрузку',
+  'downloader.preview.change': 'Использовать другую ссылку',
+})
+
+Object.assign(ru, {
+  'thanks.kicker': 'БЛАГОДАРНОСТИ', 'thanks.title.first': 'Создано при', 'thanks.title.second': 'поддержке сообщества.', 'thanks.lead': 'Те, кто поддержал больше всего, находятся выше. У каждого человека одно место с суммой всех пожертвований.', 'thanks.loading': 'Загрузка поддержки', 'thanks.total': 'Всего поддержано', 'thanks.empty': 'Первые благодарности появятся здесь.', 'thanks.cta': 'Поддержать Shappire',
+  'nav.donate': 'Поддержать',
+  'donate.kicker': 'ПОДДЕРЖИТЕ SHAPPIRE', 'donate.title.first': 'ПОДДЕРЖАТЬ', 'donate.title.second': 'SHAPPIRE',
+  'donate.lead': 'Пожертвования поддерживают инфраструктуру, обработку и развитие Shappire. Эта страница принимает PIX-платежи для пользователей из Бразилии.',
+  'donate.impact.infrastructure.title': 'Инфраструктура', 'donate.impact.infrastructure.description': 'Серверы, временное хранилище и обработка, которые поддерживают работу инструментов.',
+  'donate.impact.development.title': 'Разработка', 'donate.impact.development.description': 'Новые инструменты, улучшения производительности и более частые исправления.',
+  'donate.impact.open.title': 'Открытый доступ', 'donate.impact.open.description': 'Проект без обязательных аккаунтов, искусственных ограничений и платных тарифов.',
+  'donate.ranking': 'Посмотреть рейтинг поддержавших', 'donate.checkout.label': 'ВАШЕ ПОЖЕРТВОВАНИЕ', 'donate.checkout.title': 'Выберите сумму', 'donate.checkout.other': 'Другая сумма',
+  'donate.checkout.public': 'Хочу появиться в благодарностях', 'donate.checkout.nickname': 'Ник', 'donate.checkout.nicknamePlaceholder': 'Как вас назвать?', 'donate.checkout.photo': 'Ссылка на фото', 'donate.checkout.optional': 'необязательно', 'donate.checkout.privacy': 'Ваше имя и фото будут показаны публично, только если вы выберете эту опцию.',
+  'donate.checkout.creating': 'Создание PIX...', 'donate.checkout.submit': 'Поддержать', 'donate.errors.create': 'Не удалось создать PIX-платеж.', 'donate.errors.copy': 'Не удалось скопировать PIX-код.',
+  'donate.success.kicker': 'ПОЖЕРТВОВАНИЕ ПОДТВЕРЖДЕНО', 'donate.success.title': 'Спасибо за поддержку Shappire.', 'donate.success.public': 'Ваша поддержка уже добавлена на страницу благодарностей.', 'donate.success.private': 'Ваша поддержка помогает Shappire работать.', 'donate.success.link': 'Посмотреть благодарности',
+  'donate.pix.kicker': 'PIX СОЗДАН', 'donate.pix.change': 'Изменить сумму', 'donate.pix.instructions': 'Отсканируйте QR-код в банковском приложении', 'donate.pix.lead': 'Страница обновится автоматически после подтверждения платежа.', 'donate.pix.copied': 'Код скопирован', 'donate.pix.copy': 'Скопировать PIX-код', 'donate.pix.waiting': 'Ожидание подтверждения PIX',
+  'donate.details.voluntary.title': 'ДОБРОВОЛЬНАЯ ПОДДЕРЖКА', 'donate.details.voluntary.description': 'Shappire работает для всех. Поддержка необязательна, и любая сумма важна.',
+  'donate.details.pix.title': 'PIX ДЛЯ БРАЗИЛИИ', 'donate.details.pix.description': 'Платёж создаётся платёжной организацией и подтверждается на этой странице.',
+  'donate.details.ranking.title': 'ПРИЗНАНИЕ', 'donate.details.ranking.description': 'Если вы решите появиться в списке, ваш ник накапливает сумму поддержки и поднимается в рейтинге сообщества.',
+})
+
 export default ru

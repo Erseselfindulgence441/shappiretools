@@ -19,6 +19,7 @@ import { convertMedia, uploadMedia } from './tools/media-converter.js';
 import { redirectShortLink, shortenLink } from './tools/link-shortener.js';
 import { inspectMusic } from './media/music-info.js';
 import { googleLensLimiter, searchWithGoogleLens, uploadGoogleLensImage } from './tools/google-lens/route.js';
+import { createDonationPix, getAcknowledgements, getDonationStatus } from './tools/donations/route.js';
 
 const app = express();
 
@@ -101,6 +102,9 @@ app.post('/tools/media-converter', apiLimiter, uploadMedia, convertMedia);
 app.post('/tools/link-shortener', apiLimiter, shortenLink);
 app.post('/tools/google-lens', googleLensLimiter, uploadGoogleLensImage, searchWithGoogleLens);
 app.post('/media/inspect', apiLimiter, inspectMusic);
+app.post('/donations/pix', apiLimiter, createDonationPix);
+app.get('/donations/acknowledgements', apiLimiter, getAcknowledgements);
+app.get('/donations/:id/status', apiLimiter, getDonationStatus);
 app.get('/s/:slug', redirectShortLink);
 
 app.get("/", (_req, res) => {

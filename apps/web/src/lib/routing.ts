@@ -1,4 +1,4 @@
-export type AppRoute = 'home' | 'downloader' | 'faq' | 'settings' | 'about' | 'terms' | 'ethics' | 'tools' | 'password-generator' | 'link-shortener' | 'pdf-tools' | 'image-converter' | 'google-lens' | 'emoji-copier' | 'media-converter' | 'json-tools' | 'jwt-decoder' | 'regex-tester' | 'uuid-generator' | 'hash-generator' | 'base64-tool' | 'url-tool' | 'qr-tools' | 'palette-generator' | 'color-converter' | 'favicon-generator' | 'discord-components' | 'discord-embed'
+export type AppRoute = 'home' | 'downloader' | 'faq' | 'settings' | 'about' | 'terms' | 'ethics' | 'donate' | 'thanks' | 'tools' | 'password-generator' | 'link-shortener' | 'pdf-tools' | 'image-converter' | 'google-lens' | 'emoji-copier' | 'media-converter' | 'json-tools' | 'jwt-decoder' | 'regex-tester' | 'uuid-generator' | 'hash-generator' | 'base64-tool' | 'url-tool' | 'qr-tools' | 'palette-generator' | 'color-converter' | 'favicon-generator' | 'discord-components' | 'discord-embed'
 
 export function getCurrentRoute(pathname = window.location.pathname): AppRoute {
   const path = pathname.replace(/\/+$/, '')
@@ -16,6 +16,10 @@ export function getCurrentRoute(pathname = window.location.pathname): AppRoute {
       return 'terms'
     case '/ethics':
       return 'ethics'
+    case '/donate':
+      return 'donate'
+    case '/thanks':
+      return 'thanks'
     case '/tools':
       return 'tools'
     case '/tools/password-generator':
@@ -68,6 +72,7 @@ export function getPageShellClass(route: AppRoute): string {
   if (route === 'settings') classes.push('settings-page')
   if (route === 'faq') classes.push('faq-page-shell')
   if (route === 'about') classes.push('about-page')
+  if (route === 'donate' || route === 'thanks') classes.push('donation-page')
   if (route === 'terms' || route === 'ethics') classes.push('legal-page')
   if (route === 'tools') classes.push('tools-page')
   if (route === 'password-generator') classes.push('password-generator-page')

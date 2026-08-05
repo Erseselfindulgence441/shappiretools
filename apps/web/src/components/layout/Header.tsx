@@ -14,8 +14,7 @@ export function Header() {
     { key: 'downloader', href: '/downloader', label: t('nav.downloader') || 'Downloader' },
     { key: 'tools', href: '/tools', label: t('nav.tools') || 'Ferramentas' },
     { key: 'settings', href: '/settings', label: t('nav.settings') || 'Configurações' },
-    { key: 'faq', href: '/servicos', label: 'FAQ' },
-    { key: 'about', href: '/about', label: t('nav.about') || 'Sobre' },
+    { key: 'donate', href: '/donate', label: t('nav.donate') || 'Donate' },
   ]
 
   return (

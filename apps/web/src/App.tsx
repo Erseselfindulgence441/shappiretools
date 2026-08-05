@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Footer, Header } from './components/layout'
 import { BetaBanner } from './components/layout/BetaBanner'
 import { Hero, Home } from './components/home'
-import { About, Base64Tool, ColorConverter, DiscordSuite, EmojiCopier, FAQ, FaviconGenerator, GoogleLensSearch, HashGenerator, ImageConverter, JsonTools, JwtDecoder, Legal, LinkShortener, MediaConverter, PaletteGenerator, PasswordGenerator, PDFTools, QRTools, RegexTester, Settings, Tools, UrlTool, UuidGenerator } from './components/pages'
+import { About, Base64Tool, ColorConverter, DiscordSuite, Donate, EmojiCopier, FAQ, FaviconGenerator, GoogleLensSearch, HashGenerator, ImageConverter, JsonTools, JwtDecoder, Legal, LinkShortener, MediaConverter, PaletteGenerator, PasswordGenerator, PDFTools, QRTools, RegexTester, Settings, Thanks, Tools, UrlTool, UuidGenerator } from './components/pages'
 import { getCurrentRoute, getPageShellClass } from './lib/routing'
 
 function MainContent() {
@@ -21,6 +21,10 @@ function MainContent() {
       return <Legal type="terms" />
     case 'ethics':
       return <Legal type="ethics" />
+    case 'donate':
+      return <Donate />
+    case 'thanks':
+      return <Thanks />
     case 'tools':
       return <Tools />
     case 'password-generator':

@@ -29,6 +29,53 @@ function musicResponse(data) {
   }
 }
 
+function providerName(host) {
+  const names = {
+    'tiktok.com': 'TikTok',
+    'instagram.com': 'Instagram',
+    'twitter.com': 'Twitter / X',
+    'x.com': 'Twitter / X',
+    'facebook.com': 'Facebook',
+    'pinterest.com': 'Pinterest',
+    'vimeo.com': 'Vimeo',
+    'twitch.tv': 'Twitch',
+    'dailymotion.com': 'Dailymotion',
+    'bilibili.com': 'Bilibili',
+    'streamable.com': 'Streamable',
+  }
+
+  const match = Object.entries(names).find(([domain]) => host === domain || host.endsWith(`.${domain}`))
+  return match?.[1] || host.replace(/^www\./, '')
+}
+
+async function inspectVideo(url, host) {
+  const fallback = {
+    kind: 'video',
+    provider: providerName(host),
+    title: 'Mídia pronta para preparar',
+    thumbnail: null,
+  }
+
+  try {
+    if (host.endsWith('vimeo.com')) {
+      const response = await fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(url)}`, { signal: AbortSignal.timeout(7000) })
+      if (response.ok) {
+        const data = await response.json()
+        return { ...fallback, title: data.title || fallback.title, author: data.author_name || undefined, thumbnail: data.thumbnail_url || null }
+      }
+    }
+
+    if (host.endsWith('tiktok.com')) {
+      const data = await oEmbed(url, 'https://www.tiktok.com/oembed')
+      return { ...fallback, title: data.title || fallback.title, author: data.author_name || undefined, thumbnail: data.thumbnail_url || null }
+    }
+  } catch {
+    return fallback
+  }
+
+  return fallback
+}
+
 export async function inspectMusic(req, res) {
   const rawUrl = String(req.body?.url || '').trim()
   if (!rawUrl) return res.status(400).json({ error: 'Envie um link válido.' })
@@ -131,7 +178,7 @@ export async function inspectMusic(req, res) {
       }))
     }
 
-    return res.json({ kind: 'video' })
+    return res.json(await inspectVideo(url.toString(), host))
   } catch {
     return res.status(502).json({ error: 'Não foi possível buscar os dados desta mídia.' })
   }
